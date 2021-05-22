@@ -21,7 +21,7 @@ public class Student {
     /**
      * Student`s speed
      */
-    public float SPEED;
+    public static float SPEED = 4f;
     /**
      * Student`s jump
      */
@@ -54,7 +54,6 @@ public class Student {
      * Student`s face
      */
     boolean facingLeft = true;
-
     /**
      * Constructor student
      *
@@ -62,26 +61,48 @@ public class Student {
      * @param SPEED    speed
      */
     public Student(Vector2 position, float SPEED) {
-        this.SPEED = SPEED;
+        Student.SPEED = SPEED;
         this.position = position;
         this.bounds.height = SIZE;
         this.bounds.width = SIZE;
-    }
-
-
-    public Rectangle getBounds() {
-        return bounds;
-    }
-
-    public void setBounds(Rectangle bounds) {
-        this.bounds = bounds;
     }
 
     public Vector2 getPosition() {
         return position;
     }
 
-    public void setPosition(Vector2 position) {
-        this.position = position;
+    public void setState(State newState) {
+        this.state = newState;
+    }
+
+    public void update(float delta) {
+        System.out.println(position);
+        position.add(velocity.cpy()).scl(delta);
+        System.out.println(position);
+    }
+
+
+    public Vector2 getAcceleration() {
+        return acceleration;
+    }
+
+    public Vector2 getVelocity() {
+        return velocity;
+    }
+
+    public Rectangle getBounds() {
+        return bounds;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public boolean isFacingLeft() {
+        return facingLeft;
+    }
+
+    public void setFacingLeft(boolean facingLeft) {
+        this.facingLeft = facingLeft;
     }
 }

@@ -28,8 +28,7 @@ public class World {
     }
 
     public void createDemoWorld() {
-        student = new Student(new Vector2(7, 2), 2f);
-
+        student = new Student(new Vector2(7, 2), 4f);
         for (int i = 0; i < 10; i++) {
             blocks.add(new Block(new Vector2(i, 0)));
             blocks.add(new Block(new Vector2(i, 7)));
