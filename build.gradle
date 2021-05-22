@@ -46,6 +46,7 @@ project(":desktop") {
         api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
+        api 'com.android.tools.build:gradle:3.1.3'
         
     }
 }
