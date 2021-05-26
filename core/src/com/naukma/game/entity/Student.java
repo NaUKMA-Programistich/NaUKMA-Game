@@ -18,6 +18,9 @@ public class Student {
         DYING // дед инсайд
     }
 
+    float stateTime = 0;
+
+
     /**
      * Student`s speed
      */
@@ -58,10 +61,8 @@ public class Student {
      * Constructor student
      *
      * @param position Vector
-     * @param SPEED    speed
      */
-    public Student(Vector2 position, float SPEED) {
-        Student.SPEED = SPEED;
+    public Student(Vector2 position) {
         this.position = position;
         this.bounds.height = SIZE;
         this.bounds.width = SIZE;
@@ -76,11 +77,9 @@ public class Student {
     }
 
     public void update(float delta) {
-        System.out.println(position);
+        stateTime += delta;
         position.add(velocity.cpy().scl(delta));
-        System.out.println(position);
     }
-
 
     public Vector2 getAcceleration() {
         return acceleration;
@@ -90,8 +89,12 @@ public class Student {
         return velocity;
     }
 
-    public Rectangle getBounds() {
-        return bounds;
+    public void setFacingLeft(boolean facingLeft) {
+        this.facingLeft = facingLeft;
+    }
+
+    public float getStateTime() {
+        return stateTime;
     }
 
     public State getState() {
@@ -100,9 +103,5 @@ public class Student {
 
     public boolean isFacingLeft() {
         return facingLeft;
-    }
-
-    public void setFacingLeft(boolean facingLeft) {
-        this.facingLeft = facingLeft;
     }
 }

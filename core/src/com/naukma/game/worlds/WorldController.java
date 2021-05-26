@@ -16,7 +16,7 @@ public class WorldController {
     }
 
     private World world;
-    private final Student student;
+    public final Student student;
 
     static Map<Keys, Boolean> keys = new HashMap<>();
 
@@ -75,13 +75,13 @@ public class WorldController {
 
     private void processInput() {
         if (keys.get(Keys.LEFT)) {
-            System.out.println("left");
+//            System.out.println("left");
             student.setFacingLeft(true);
             student.setState(Student.State.WALKING);
             student.getVelocity().x = -Student.SPEED;
         }
         if (keys.get(Keys.RIGHT)) {
-            System.out.println("right");
+//            System.out.println("right");
             student.setFacingLeft(false);
             student.setState(Student.State.WALKING);
             student.getVelocity().x = Student.SPEED;

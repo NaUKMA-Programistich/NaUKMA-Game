@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.naukma.game.entity.Student;
 import com.naukma.game.worlds.World;
 import com.naukma.game.worlds.WorldController;
 import com.naukma.game.worlds.WorldRenderer;
@@ -29,6 +30,7 @@ public class GameScreen implements Screen, InputProcessor {
     public void render(float delta) {
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        System.out.println("Speed " + controller.student.getVelocity());
         controller.update(delta);
         renderer.render();
     }
