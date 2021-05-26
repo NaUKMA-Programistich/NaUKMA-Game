@@ -77,7 +77,7 @@ public class Student {
 
     public void update(float delta) {
         System.out.println(position);
-        position.add(velocity.cpy()).scl(delta);
+        position.add(velocity.cpy().scl(delta));
         System.out.println(position);
     }
 

@@ -24,7 +24,13 @@ public class WorldRenderer {
     private float ppuX; // pixels per unit on the X axis
     private float ppuY; // pixels per unit on the Y axis
 
+    private int width;
+    private int height;
+
     public void setSize(int w, int h) {
+        width = w;
+        height = h;
+
         ppuX = (float) w / CAMERA_WIDTH;
         ppuY = (float) h / CAMERA_HEIGHT;
     }
@@ -59,8 +65,8 @@ public class WorldRenderer {
     }
 
     private void drawStudent() {
-        Student bob = world.getStudent();
-        spriteBatch.draw(studentTexture, bob.getPosition().x * ppuX, bob.getPosition().y * ppuY, Student.SIZE * ppuX, Student.SIZE * ppuY);
+        Student stud = world.getStudent();
+        spriteBatch.draw(studentTexture, stud.getPosition().x * ppuX, stud.getPosition().y * ppuY, Student.SIZE * ppuX, Student.SIZE * ppuY);
 
     }
 }

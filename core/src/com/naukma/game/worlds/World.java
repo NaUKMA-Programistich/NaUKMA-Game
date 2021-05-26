@@ -19,16 +19,21 @@ public class World {
      */
     Student student;
 
-    public World() {
-        createDemoWorld();
-    }
-
     public Array<Block> getBlocks() {
         return blocks;
     }
 
+    public Student getStudent() {
+        return student;
+    }
+
+    public World() {
+        createDemoWorld();
+    }
+
     public void createDemoWorld() {
         student = new Student(new Vector2(7, 2), 4f);
+
         for (int i = 0; i < 10; i++) {
             blocks.add(new Block(new Vector2(i, 0)));
             blocks.add(new Block(new Vector2(i, 7)));
@@ -44,7 +49,4 @@ public class World {
         blocks.add(new Block(new Vector2(6, 5)));
     }
 
-    public Student getStudent() {
-        return student;
-    }
 }

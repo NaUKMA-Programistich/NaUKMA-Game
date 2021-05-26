@@ -11,14 +11,16 @@ import com.naukma.game.worlds.WorldRenderer;
 
 public class GameScreen implements Screen, InputProcessor {
 
+    private World world;
     private WorldRenderer renderer;
     private WorldController controller;
+
     private int width, height;
 
     @Override
     public void show() {
-        World world = new World();
-        renderer = new WorldRenderer(new World());
+        world = new World();
+        renderer = new WorldRenderer(world);
         controller = new WorldController(world);
         Gdx.input.setInputProcessor(this);
     }
