@@ -32,7 +32,6 @@ public class LevelLoader {
                 int pixel = (pixmap.getPixel(col, row) >>> 8) & 0xffffff;
                 int iRow = level.getHeight() - 1 - row;
                 if (pixel == BLOCK) {
-                    // adding a block
                     blocks[col][iRow] = new Block(new Vector2(col, iRow));
                 } else if (pixel == START_POS) {
                     level.setSpanPosition(new Vector2(col, iRow));

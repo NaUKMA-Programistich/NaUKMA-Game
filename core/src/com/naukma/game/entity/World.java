@@ -56,8 +56,8 @@ public class World {
     public void createDemoWorld() {
 //        level = LevelLoader.loadLevel(1);
 //        student = new Student(level.getSpanPosition());
-//        level = new Level();
-//        student = new Student(new Vector2(7, 2));
+        level = new Level();
+        student = new Student(new Vector2(7, 2));
     }
 
     public Array<Rectangle> getCollisionRects() {
