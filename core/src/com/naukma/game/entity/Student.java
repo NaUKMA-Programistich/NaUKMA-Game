@@ -104,4 +104,12 @@ public class Student {
     public boolean isFacingLeft() {
         return facingLeft;
     }
+
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
+
+    public Rectangle getBounds() {
+        return bounds;
+    }
 }

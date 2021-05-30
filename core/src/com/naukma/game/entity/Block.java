@@ -31,7 +31,13 @@ public class Block {
         this.bounds.height = SIZE;
     }
 
+    public Rectangle getBounds() {
+        return bounds;
+    }
+
     public Vector2 getPosition() {
         return position;
     }
 }
+
+

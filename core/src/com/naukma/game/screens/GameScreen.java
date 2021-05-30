@@ -5,10 +5,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.naukma.game.entity.Student;
-import com.naukma.game.worlds.World;
-import com.naukma.game.worlds.WorldController;
-import com.naukma.game.worlds.WorldRenderer;
+import com.naukma.game.entity.World;
+import com.naukma.game.controller.WorldController;
+import com.naukma.game.view.WorldRenderer;
 
 public class GameScreen implements Screen, InputProcessor {
 
@@ -20,7 +19,7 @@ public class GameScreen implements Screen, InputProcessor {
     @Override
     public void show() {
         World world = new World();
-        renderer = new WorldRenderer(world);
+        renderer = new WorldRenderer(world, true);
         controller = new WorldController(world);
         Gdx.input.setInputProcessor(this);
     }
@@ -29,7 +28,6 @@ public class GameScreen implements Screen, InputProcessor {
     public void render(float delta) {
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        System.out.println("Speed " + controller.student.getVelocity());
         controller.update(delta);
         renderer.render();
     }
@@ -63,11 +61,11 @@ public class GameScreen implements Screen, InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        if (keycode == Input.Keys.LEFT)
+        if (keycode == Input.Keys.A)
             controller.leftPressed();
-        if (keycode == Input.Keys.RIGHT)
+        if (keycode == Input.Keys.D)
             controller.rightPressed();
-        if (keycode == Input.Keys.Z)
+        if (keycode == Input.Keys.SPACE)
             controller.jumpPressed();
         if (keycode == Input.Keys.X)
             controller.firePressed();
@@ -76,11 +74,11 @@ public class GameScreen implements Screen, InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
-        if (keycode == Input.Keys.LEFT)
+        if (keycode == Input.Keys.A)
             controller.leftReleased();
-        if (keycode == Input.Keys.RIGHT)
+        if (keycode == Input.Keys.D)
             controller.rightReleased();
-        if (keycode == Input.Keys.Z)
+        if (keycode == Input.Keys.SPACE)
             controller.jumpReleased();
         if (keycode == Input.Keys.X)
             controller.fireReleased();
