@@ -56,7 +56,7 @@ public class World {
     public void createDemoWorld() {
 //        level = LevelLoader.loadLevel(1);
 //        student = new Student(level.getSpanPosition());
-        student = new Student(new Vector2(7, 2));
+        student = new Student(new Vector2(7, 3));
         level = new Level();
     }
 
