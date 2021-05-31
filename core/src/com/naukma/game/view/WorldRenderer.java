@@ -18,12 +18,15 @@ import com.naukma.game.entity.World;
 
 public class WorldRenderer {
 
-    private final World world;
     private static final float CAMERA_WIDTH = 10f;
     private static final float CAMERA_HEIGHT = 7f;
-
     private static final float RUNNING_FRAME_DURATION = 0.06f;
+
+
+
+    private World world;
     private final OrthographicCamera cam;
+
 
     private TextureRegion studentIdleLeft;
     private TextureRegion studentIdleRight;
@@ -32,25 +35,35 @@ public class WorldRenderer {
     private TextureRegion studentJumpRight;
     private TextureRegion studentFallRight;
     private TextureRegion blockTexture;
-    private boolean debug = false;
+    private TextureRegion studentFrame;
 
-    /**
-     * Animations
-     **/
+
     private Animation<? extends TextureRegion> walkLeftAnimation;
     private Animation<? extends TextureRegion> walkRightAnimation;
     ShapeRenderer debugRenderer = new ShapeRenderer();
 
 
     private final SpriteBatch spriteBatch;
+    private boolean debug = false;
+    private int width;
+    private int height;
     private float ppuX; // pixels per unit on the X axis
     private float ppuY; // pixels per unit on the Y axis
 
-    public void setSize(int w, int h) {
-        ppuX = (float) w / CAMERA_WIDTH;
-        ppuY = (float) h / CAMERA_HEIGHT;
+    public boolean isDebug() {
+        return debug;
     }
 
+    public void setDebug(boolean debug) {
+        this.debug = debug;
+    }
+
+    public void setSize(int w, int h) {
+        this.width = w;
+        this.height = h;
+        ppuX = (float)width / CAMERA_WIDTH;
+        ppuY = (float)height / CAMERA_HEIGHT;
+    }
 
     public WorldRenderer(World world, boolean debug) {
         this.world = world;
@@ -62,28 +75,14 @@ public class WorldRenderer {
         loadTextures();
     }
 
-    public boolean isDebug() {
-        return debug;
-    }
-    public void setDebug(boolean debug) {
-        this.debug = debug;
-    }
-
-
     private void loadTextures() {
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("images/textures/textures.pack.atlas"));
         studentIdleLeft = atlas.findRegion("bob01");
         studentIdleRight = new TextureRegion(studentIdleLeft);
         studentIdleRight.flip(true, false);
-        studentJumpLeft = atlas.findRegion("bobup");
-        studentJumpRight = new TextureRegion(studentJumpLeft);
-        studentJumpRight.flip(true, false);
-        studentFallLeft = atlas.findRegion("bobdown");
-        studentFallRight = new TextureRegion(studentFallLeft);
-        studentFallRight.flip(true, false);
-
         blockTexture = atlas.findRegion("block");
         TextureRegion[] walkLeftFrames = new TextureRegion[5];
+
         for (int i = 0; i < 5; i++) {
             walkLeftFrames[i] = atlas.findRegion("bob0" + (i + 2));
         }
@@ -95,9 +94,15 @@ public class WorldRenderer {
             walkRightFrames[i] = new TextureRegion(walkLeftFrames[i]);
             walkRightFrames[i].flip(true, false);
         }
-        walkRightAnimation = new Animation<>(RUNNING_FRAME_DURATION, walkRightFrames);
-    }
 
+        walkRightAnimation = new Animation<>(RUNNING_FRAME_DURATION, walkRightFrames);
+        studentJumpLeft = atlas.findRegion("bobup");
+        studentJumpRight = new TextureRegion(studentJumpLeft);
+        studentJumpRight.flip(true, false);
+        studentFallLeft = atlas.findRegion("bobdown");
+        studentFallRight = new TextureRegion(studentFallLeft);
+        studentFallRight.flip(true, false);
+    }
 
     public void render() {
         spriteBatch.begin();
@@ -105,8 +110,7 @@ public class WorldRenderer {
         drawStudent();
         spriteBatch.end();
         drawCollisionBlocks();
-        if (debug)
-            drawDebug();
+        if (debug) drawDebug();
     }
 
     private void drawBlocks() {
@@ -117,7 +121,7 @@ public class WorldRenderer {
 
     private void drawStudent() {
         Student student = world.getStudent();
-        TextureRegion studentFrame = student.isFacingLeft() ? studentIdleLeft : studentIdleRight;
+        studentFrame = student.isFacingLeft() ? studentIdleLeft : studentIdleRight;
         if(student.getState().equals(Student.State.WALKING)) {
             studentFrame = student.isFacingLeft() ? walkLeftAnimation.getKeyFrame(student.getStateTime(), true) : walkRightAnimation.getKeyFrame(student.getStateTime(), true);
         } else if (student.getState().equals(Student.State.JUMPING)) {
@@ -155,6 +159,5 @@ public class WorldRenderer {
         debugRenderer.end();
 
     }
-
 
 }

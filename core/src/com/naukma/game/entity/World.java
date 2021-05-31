@@ -13,15 +13,22 @@ import java.util.List;
  */
 public class World {
 
-    Array<Block> blocks = new Array<>();
     Student student;
     Level level;
 
-    public Array<Block> getBlocks() {
-        return blocks;
+    public Array<Rectangle> getCollisionRects() {
+        return collisionRects;
     }
 
-    Array<Rectangle> collisionRects = new Array<Rectangle>();
+    public Student getStudent() {
+        return student;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    Array<Rectangle> collisionRects = new Array<>();
 
     public List<Block> getDrawableBlocks(int width, int height) {
         int x = (int) student.getPosition().x - width;
@@ -60,17 +67,6 @@ public class World {
         level = new Level();
     }
 
-    public Array<Rectangle> getCollisionRects() {
-        return collisionRects;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public Level getLevel() {
-        return level;
-    }
 
     public World() {
         createDemoWorld();

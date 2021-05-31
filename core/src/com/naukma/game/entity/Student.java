@@ -18,45 +18,18 @@ public class Student {
         DYING // дед инсайд
     }
 
-    float stateTime = 0;
 
-
-    /**
-     * Student`s speed
-     */
-    public static float SPEED = 4f;
-    /**
-     * Student`s jump
-     */
-    public static final float JUMP_VELOCITY = 1f;
-    /**
-     * Student`s size
-     */
     public static final float SIZE = 0.5f;
-    /**
-     * Student`s position
-     */
+
     Vector2 position = new Vector2();
-    /**
-     * Student`s acceleration
-     */
     Vector2 acceleration = new Vector2();
-    /**
-     * Student`s velocity
-     */
     Vector2 velocity = new Vector2();
-    /**
-     * Student`s bounds
-     */
     Rectangle bounds = new Rectangle();
-    /**
-     * Student`s state
-     */
     State state = State.IDLE;
-    /**
-     * Student`s face
-     */
     boolean facingLeft = true;
+    float stateTime = 0;
+    boolean longJump = false;
+
     /**
      * Constructor student
      *
@@ -64,6 +37,8 @@ public class Student {
      */
     public Student(Vector2 position) {
         this.position = position;
+        this.bounds.x = position.x;
+        this.bounds.y = position.y;
         this.bounds.height = SIZE;
         this.bounds.width = SIZE;
     }
@@ -78,7 +53,6 @@ public class Student {
 
     public void update(float delta) {
         stateTime += delta;
-        position.add(velocity.cpy().scl(delta));
     }
 
     public Vector2 getAcceleration() {
@@ -107,9 +81,21 @@ public class Student {
 
     public void setPosition(Vector2 position) {
         this.position = position;
+        this.bounds.setX(position.x);
+        this.bounds.setY(position.y);
     }
 
     public Rectangle getBounds() {
         return bounds;
     }
+
+    public boolean isLongJump() {
+        return longJump;
+    }
+
+
+    public void setLongJump(boolean longJump) {
+        this.longJump = longJump;
+    }
+
 }

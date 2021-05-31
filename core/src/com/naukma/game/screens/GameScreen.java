@@ -28,6 +28,7 @@ public class GameScreen implements Screen, InputProcessor {
     public void render(float delta) {
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         controller.update(delta);
         renderer.render();
     }
@@ -82,6 +83,8 @@ public class GameScreen implements Screen, InputProcessor {
             controller.jumpReleased();
         if (keycode == Input.Keys.X)
             controller.fireReleased();
+        if (keycode == Input.Keys.Q)
+            renderer.setDebug(!renderer.isDebug());
         return true;
 
     }

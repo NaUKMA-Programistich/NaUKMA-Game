@@ -28,21 +28,20 @@ public class WorldController {
     private static final float MAX_JUMP_SPEED = 7f;
     private static final float DAMP = 0.90f;
     private static final float MAX_VEL = 2f;
-    private static final float WIDTH = 10f;
-
-
-    private static final float CAMERA_WIDTH = 10f;
-    private static final float CAMERA_HEIGHT = 7f;
 
     private final World world;
     public final Student student;
     private long jumpPressedTime;
     private boolean jumpingPressed;
     private boolean grounded = false;
-
+    private final Pool<Rectangle> rectPool = new Pool<Rectangle>() {
+        @Override
+        protected Rectangle newObject() {
+            return new Rectangle();
+        }
+    };
 
     static Map<Keys, Boolean> keys = new HashMap<>();
-
 
     static {
         keys.put(Keys.LEFT, false);
@@ -53,19 +52,9 @@ public class WorldController {
 
     private final Array<Block> collidable = new Array<Block>();
 
-    private final Pool<Rectangle> rectPool = new Pool<Rectangle>() {
-        @Override
-        protected Rectangle newObject() {
-            return new Rectangle();
-        }
-    };
-
     public WorldController(World world) {
         this.world = world;
         this.student = world.getStudent();
-        OrthographicCamera cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
-        cam.position.set(CAMERA_WIDTH / 2f, CAMERA_HEIGHT / 2f, 0);
-        cam.update();
     }
 
     public void leftPressed() {
@@ -126,49 +115,6 @@ public class WorldController {
         }
 
         student.update(delta);
-    }
-
-    private void processInput() {
-        if (keys.get(Keys.JUMP)) {
-            if (!student.getState().equals(Student.State.JUMPING)) {
-                jumpingPressed = true;
-                jumpPressedTime = System.currentTimeMillis();
-                student.setState(Student.State.JUMPING);
-                student.getVelocity().y = MAX_JUMP_SPEED;
-            } else {
-                if (jumpingPressed && ((System.currentTimeMillis() - jumpPressedTime) >= LONG_JUMP_PRESS)) {
-                    jumpingPressed = false;
-                } else {
-                    if (jumpingPressed) {
-                        student.getVelocity().y = MAX_JUMP_SPEED;
-                    }
-                }
-            }
-        } else if (keys.get(Keys.LEFT)) {
-            student.setFacingLeft(true);
-            if (!student.getState().equals(Student.State.JUMPING)) {
-                student.setState(Student.State.WALKING);
-            }
-            student.getAcceleration().x = -ACCELERATION;
-        } else if (keys.get(Keys.RIGHT)) {
-            student.setFacingLeft(false);
-            if (!student.getState().equals(Student.State.JUMPING)) {
-                student.setState(Student.State.WALKING);
-            }
-            student.getAcceleration().x = ACCELERATION;
-        } else {
-            if (!student.getState().equals(Student.State.JUMPING)) {
-                student.setState(Student.State.IDLE);
-            }
-            student.getAcceleration().x = 0;
-        }
-
-        if ((keys.get(Keys.LEFT) && keys.get(Keys.RIGHT)) || (!keys.get(Keys.LEFT) && !(keys.get(Keys.RIGHT)))) {
-            student.setState(Student.State.IDLE);
-            student.getAcceleration().x = 0;
-            student.getVelocity().x = 0;
-        }
-
     }
 
     private void checkCollisionWithBlocks(float delta) {
@@ -243,6 +189,54 @@ public class WorldController {
                 }
             }
         }
+    }
+
+
+    private void processInput() {
+        if (keys.get(Keys.JUMP)) {
+            if (!student.getState().equals(Student.State.JUMPING)) {
+                jumpingPressed = true;
+                jumpPressedTime = System.currentTimeMillis();
+                student.setState(Student.State.JUMPING);
+                student.getVelocity().y = MAX_JUMP_SPEED;
+                grounded = false;
+            }
+            else {
+                if (jumpingPressed && ((System.currentTimeMillis() - jumpPressedTime) >= LONG_JUMP_PRESS)) {
+                    jumpingPressed = false;
+                } else {
+                    if (jumpingPressed) {
+                        student.getVelocity().y = MAX_JUMP_SPEED;
+                    }
+                }
+            }
+        }
+        else if (keys.get(Keys.LEFT)) {
+            student.setFacingLeft(true);
+            if (!student.getState().equals(Student.State.JUMPING)) {
+                student.setState(Student.State.WALKING);
+            }
+            student.getAcceleration().x = -ACCELERATION;
+        }
+        else if (keys.get(Keys.RIGHT)) {
+            student.setFacingLeft(false);
+            if (!student.getState().equals(Student.State.JUMPING)) {
+                student.setState(Student.State.WALKING);
+            }
+            student.getAcceleration().x = ACCELERATION;
+        } else {
+            if (!student.getState().equals(Student.State.JUMPING)) {
+                student.setState(Student.State.IDLE);
+            }
+            student.getAcceleration().x = 0;
+        }
+
+//        if ((keys.get(Keys.LEFT) && keys.get(Keys.RIGHT)) || (!keys.get(Keys.LEFT) && !(keys.get(Keys.RIGHT)))) {
+//            student.setState(Student.State.IDLE);
+//            student.getAcceleration().x = 0;
+//            student.getVelocity().x = 0;
+//        }
+
     }
 
 
