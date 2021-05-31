@@ -110,7 +110,7 @@ public class WorldRenderer {
     }
 
     private void drawBlocks() {
-        for (Block block : world.getBlocks()) {
+        for (Block block: world.getDrawableBlocks((int)CAMERA_WIDTH, (int)CAMERA_HEIGHT)) {
             spriteBatch.draw(blockTexture, block.getPosition().x * ppuX, block.getPosition().y * ppuY, Block.SIZE * ppuX, Block.SIZE * ppuY);
         }
     }
