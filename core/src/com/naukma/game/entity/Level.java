@@ -2,11 +2,15 @@ package com.naukma.game.entity;
 
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.Arrays;
+
 public class Level {
 
     private int width;
     private int height;
     private Block[][] blocks;
+    private Mark[][] marks;
+    private Bonus[][] bonuses;
     private Vector2 spanPosition;
 
 
@@ -30,6 +34,22 @@ public class Level {
         return blocks;
     }
 
+    public Mark[][] getMarks() {
+        return marks;
+    }
+
+    public Bonus[][] getBonuses() {
+        return bonuses;
+    }
+
+    public void setMarks(Mark[][] marks) {
+        this.marks = marks;
+    }
+
+    public void setBonuses(Bonus[][] bonuses) {
+        this.bonuses = bonuses;
+    }
+
     public void setBlocks(Block[][] blocks) {
         this.blocks = blocks;
     }
@@ -38,9 +58,16 @@ public class Level {
         loadDemoLevel();
     }
 
-    public Block get(int x, int y) {
+    public Block getBlock(int x, int y) {
         return blocks[x][y];
     }
+    public Mark getMark(int x, int y) {
+        return marks[x][y];
+    }
+    public Bonus getBonus(int x, int y) {
+        return bonuses[x][y];
+    }
+
     public Vector2 getSpanPosition() {
         return spanPosition;
     }
@@ -50,8 +77,8 @@ public class Level {
     }
 
     private void loadDemoLevel() {
-        width = 10;
-        height = 7;
+        width = 20;
+        height = 20;
         blocks = new Block[width][height];
         for (int col = 0; col < width; col++) {
             for (int row = 0; row < height; row++) {
@@ -59,20 +86,22 @@ public class Level {
             }
         }
 
-        for (int col = 0; col < 10; col++) {
-            blocks[col][0] = new Block(new Vector2(col, 0));
-            blocks[col][6] = new Block(new Vector2(col, 6));
-            if (col > 2) {
-                blocks[col][1] = new Block(new Vector2(col, 1));
+        for (int col = 0; col < width; col++) {
+            for (int row = 0; row < height; row++) {
+                blocks[col][row] = new Block(new Vector2(col, row));
             }
+//            blocks[col][0] = new Block(new Vector2(col, 0));
+//            blocks[col][6] = new Block(new Vector2(col, 6));
         }
-        blocks[9][2] = new Block(new Vector2(9, 2));
-        blocks[9][3] = new Block(new Vector2(9, 3));
-        blocks[9][4] = new Block(new Vector2(9, 4));
-        blocks[9][5] = new Block(new Vector2(9, 5));
+    }
 
-        blocks[6][3] = new Block(new Vector2(6, 3));
-        blocks[6][4] = new Block(new Vector2(6, 4));
-        blocks[6][5] = new Block(new Vector2(6, 5));
+    @Override
+    public String toString() {
+        return "Level{" +
+                "width=" + width +
+                ", height=" + height +
+                ", blocks=" + Arrays.toString(blocks) +
+                ", spanPosition=" + spanPosition +
+                '}';
     }
 }

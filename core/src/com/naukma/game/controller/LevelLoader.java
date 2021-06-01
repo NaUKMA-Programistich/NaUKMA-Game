@@ -4,15 +4,20 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Vector2;
 import com.naukma.game.entity.Block;
+import com.naukma.game.entity.Bonus;
 import com.naukma.game.entity.Level;
+import com.naukma.game.entity.Mark;
 
 public class LevelLoader {
 
     private static final String LEVEL_PREFIX    = "levels/level-";
 
-    private static final int    BLOCK           = 0x000000; // black
-    private static final int    EMPTY           = 0xffffff; // white
-    private static final int    START_POS       = 0x2200ff; // blue
+    private static final int BLOCK = 0x000000; // black
+    private static final int EMPTY = 0xffffff; // white
+    private static final int START_POS = 0x2200ff; // blue
+    private static final int MARK_FINAL = 0xffff00; // yellow
+    private static final int BONUS_POINT = 0xff0000; // red
+
 
     public static Level loadLevel(int number) {
         Level level = new Level();
@@ -21,9 +26,13 @@ public class LevelLoader {
         level.setHeight(pixmap.getHeight());
 
         Block[][] blocks = new Block[level.getWidth()][level.getHeight()];
+        Mark[][] marks = new Mark[level.getWidth()][level.getHeight()];
+        Bonus[][] bonuses = new Bonus[level.getWidth()][level.getHeight()];
         for (int col = 0; col < level.getWidth(); col++) {
             for (int row = 0; row < level.getHeight(); row++) {
                 blocks[col][row] = null;
+                marks[col][row] = null;
+                bonuses[col][row] = null;
             }
         }
 
@@ -35,10 +44,16 @@ public class LevelLoader {
                     blocks[col][iRow] = new Block(new Vector2(col, iRow));
                 } else if (pixel == START_POS) {
                     level.setSpanPosition(new Vector2(col, iRow));
+                } else if (pixel == MARK_FINAL) {
+                    marks[col][iRow] = new Mark(new Vector2(col, iRow));
+                } else if (pixel == BONUS_POINT) {
+                    bonuses[col][iRow] = new Bonus(new Vector2(col, iRow));
                 }
             }
         }
         level.setBlocks(blocks);
+        level.setMarks(marks);
+        level.setBonuses(bonuses);
         return level;
     }
 

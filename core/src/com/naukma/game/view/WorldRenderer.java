@@ -11,9 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
-import com.naukma.game.entity.Block;
-import com.naukma.game.entity.Student;
-import com.naukma.game.entity.World;
+import com.naukma.game.entity.*;
 
 
 public class WorldRenderer {
@@ -35,6 +33,8 @@ public class WorldRenderer {
     private TextureRegion studentJumpRight;
     private TextureRegion studentFallRight;
     private TextureRegion blockTexture;
+    private TextureRegion markTexture;
+    private TextureRegion bonusTexture;
     private TextureRegion studentFrame;
 
 
@@ -82,6 +82,8 @@ public class WorldRenderer {
         studentIdleRight = new TextureRegion(studentIdleLeft);
         studentIdleRight.flip(true, false);
         blockTexture = atlas.findRegion("block");
+        markTexture = atlas.findRegion("block");
+        bonusTexture = atlas.findRegion("block");
         TextureRegion[] walkLeftFrames = new TextureRegion[5];
 
         for (int i = 0; i < 5; i++) {
@@ -109,6 +111,8 @@ public class WorldRenderer {
         spriteBatch.begin();
         drawBlocks();
         drawStudent();
+        drawMark();
+        drawBonus();
         spriteBatch.end();
         drawCollisionBlocks();
         if (debug) drawDebug();
@@ -118,6 +122,18 @@ public class WorldRenderer {
         for (Block block: world.getDrawableBlocks((int)CAMERA_WIDTH, (int)CAMERA_HEIGHT)) {
 //            spriteBatch.draw(blockTexture, block.getPosition().x * ppuX, block.getPosition().y * ppuY, Block.SIZE * ppuX, Block.SIZE * ppuY);
             spriteBatch.draw(blockTexture, block.getPosition().x * ppuX, block.getPosition().y * ppuY, Block.SIZE * ppuX, Block.SIZE * ppuY);
+        }
+    }
+
+    private void drawMark() {
+        for (Mark mark: world.getDrawableMark((int)CAMERA_WIDTH, (int)CAMERA_HEIGHT)) {
+            spriteBatch.draw(markTexture, mark.getPosition().x * ppuX, mark.getPosition().y * ppuY, Mark.SIZE * ppuX, Mark.SIZE * ppuY);
+        }
+    }
+
+    private void drawBonus() {
+        for (Bonus bonus: world.getDrawableBonus((int)CAMERA_WIDTH, (int)CAMERA_HEIGHT)) {
+            spriteBatch.draw(bonusTexture, bonus.getPosition().x * ppuX, bonus.getPosition().y * ppuY, Bonus.SIZE * ppuX, Bonus.SIZE * ppuY);
         }
     }
 

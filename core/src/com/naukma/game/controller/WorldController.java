@@ -1,13 +1,9 @@
 package com.naukma.game.controller;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
-import com.naukma.game.entity.Block;
-import com.naukma.game.entity.Student;
-import com.naukma.game.entity.World;
+import com.naukma.game.entity.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,9 +19,9 @@ public class WorldController {
     }
 
     private static final long LONG_JUMP_PRESS = 150L;
-    private static final float ACCELERATION = 20f;
-    private static final float GRAVITY = -20f;
-    private static final float MAX_JUMP_SPEED = 7f;
+    private static final float ACCELERATION = 200f;
+    private static final float GRAVITY = -40f;
+    private static final float MAX_JUMP_SPEED = 10f;
     private static final float DAMP = 0.90f;
     private static final float MAX_VEL = 2f;
 
@@ -50,7 +46,9 @@ public class WorldController {
         keys.put(Keys.FIRE, false);
     }
 
-    private final Array<Block> collidable = new Array<Block>();
+    private final Array<Block> collidableBlock = new Array<>();
+    private final Array<Mark> collidableMark = new Array<>();
+    private final Array<Bonus> collidableBonus = new Array<>();
 
     public WorldController(World world) {
         this.world = world;
@@ -136,11 +134,27 @@ public class WorldController {
         studentRect.x += student.getVelocity().x;
         world.getCollisionRects().clear();
 
-        for (Block block : collidable) {
+        for (Block block : collidableBlock) {
             if (block == null) continue;
             if (studentRect.overlaps(block.getBounds())) {
                 student.getVelocity().x = 0;
                 world.getCollisionRects().add(block.getBounds());
+                break;
+            }
+        }
+
+        for (Mark mark : collidableMark) {
+            if (mark == null) continue;
+            if (studentRect.overlaps(mark.getBounds())) {
+               // TODO
+                break;
+            }
+        }
+
+        for (Bonus bonus : collidableBonus) {
+            if (bonus == null) continue;
+            if (studentRect.overlaps(bonus.getBounds())) {
+                // TODO
                 break;
             }
         }
@@ -159,7 +173,7 @@ public class WorldController {
 
         studentRect.y += student.getVelocity().y;
 
-        for (Block block : collidable) {
+        for (Block block : collidableBlock) {
             if (block == null) continue;
             if (studentRect.overlaps(block.getBounds())) {
                 if (student.getVelocity().y < 0) {
@@ -170,6 +184,24 @@ public class WorldController {
                 break;
             }
         }
+
+        for (Mark mark : collidableMark) {
+            if (mark == null) continue;
+            if (studentRect.overlaps(mark.getBounds())) {
+                // TODO
+                break;
+            }
+        }
+
+        for (Bonus bonus : collidableBonus) {
+            if (bonus == null) continue;
+            if (studentRect.overlaps(bonus.getBounds())) {
+                // TODO
+                break;
+            }
+        }
+
+
         studentRect.y = student.getPosition().y;
 
         student.getPosition().add(student.getVelocity());
@@ -181,11 +213,15 @@ public class WorldController {
     }
 
     private void populateCollidableBlocks(int startX, int startY, int endX, int endY) {
-        collidable.clear();
+        collidableBlock.clear();
+        collidableMark.clear();
+        collidableBonus.clear();
         for (int x = startX; x <= endX; x++) {
             for (int y = startY; y <= endY; y++) {
                 if (x >= 0 && x < world.getLevel().getWidth() && y >= 0 && y < world.getLevel().getHeight()) {
-                    collidable.add(world.getLevel().get(x, y));
+                    collidableBlock.add(world.getLevel().getBlock(x, y));
+                    collidableMark.add(world.getLevel().getMark(x, y));
+                    collidableBonus.add(world.getLevel().getBonus(x, y));
                 }
             }
         }
@@ -200,8 +236,7 @@ public class WorldController {
                 student.setState(Student.State.JUMPING);
                 student.getVelocity().y = MAX_JUMP_SPEED;
                 grounded = false;
-            }
-            else {
+            } else {
                 if (jumpingPressed && ((System.currentTimeMillis() - jumpPressedTime) >= LONG_JUMP_PRESS)) {
                     jumpingPressed = false;
                 } else {
@@ -210,15 +245,13 @@ public class WorldController {
                     }
                 }
             }
-        }
-        else if (keys.get(Keys.LEFT)) {
+        } else if (keys.get(Keys.LEFT)) {
             student.setFacingLeft(true);
             if (!student.getState().equals(Student.State.JUMPING)) {
                 student.setState(Student.State.WALKING);
             }
             student.getAcceleration().x = -ACCELERATION;
-        }
-        else if (keys.get(Keys.RIGHT)) {
+        } else if (keys.get(Keys.RIGHT)) {
             student.setFacingLeft(false);
             if (!student.getState().equals(Student.State.JUMPING)) {
                 student.setState(Student.State.WALKING);
