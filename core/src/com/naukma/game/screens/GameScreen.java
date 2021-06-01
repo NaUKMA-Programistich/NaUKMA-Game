@@ -1,9 +1,6 @@
 package com.naukma.game.screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.naukma.game.entity.World;
 import com.naukma.game.controller.WorldController;
@@ -13,6 +10,11 @@ public class GameScreen implements Screen, InputProcessor {
 
     private WorldRenderer renderer;
     private WorldController controller;
+
+    private Game game;
+    public GameScreen(Game game){
+        this.game = game;
+    }
 
     private int width, height;
 
@@ -42,12 +44,12 @@ public class GameScreen implements Screen, InputProcessor {
 
     @Override
     public void pause() {
-
+        Gdx.input.setInputProcessor(null);
     }
 
     @Override
     public void resume() {
-
+        Gdx.input.setInputProcessor(this);
     }
 
     @Override
