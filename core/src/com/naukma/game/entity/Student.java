@@ -19,7 +19,7 @@ public class Student {
     }
 
 
-    public static final float SIZE = 0.5f;
+    public static final float SIZE = 0.75f;
 
     Vector2 position = new Vector2();
     Vector2 acceleration = new Vector2();

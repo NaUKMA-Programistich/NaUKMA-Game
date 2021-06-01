@@ -18,8 +18,8 @@ import com.naukma.game.entity.World;
 
 public class WorldRenderer {
 
-    private static final float CAMERA_WIDTH = 10f;
-    private static final float CAMERA_HEIGHT = 7f;
+    private static final float CAMERA_WIDTH = 20f;
+    private static final float CAMERA_HEIGHT = 15f;
     private static final float RUNNING_FRAME_DURATION = 0.06f;
 
 
@@ -68,6 +68,7 @@ public class WorldRenderer {
     public WorldRenderer(World world, boolean debug) {
         this.world = world;
         this.cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
+//        this.cam.position.set(CAMERA_WIDTH / 2f, CAMERA_HEIGHT / 2f, 0);
         this.cam.position.set(CAMERA_WIDTH / 2f, CAMERA_HEIGHT / 2f, 0);
         this.cam.update();
         this.debug = debug;
@@ -115,6 +116,7 @@ public class WorldRenderer {
 
     private void drawBlocks() {
         for (Block block: world.getDrawableBlocks((int)CAMERA_WIDTH, (int)CAMERA_HEIGHT)) {
+//            spriteBatch.draw(blockTexture, block.getPosition().x * ppuX, block.getPosition().y * ppuY, Block.SIZE * ppuX, Block.SIZE * ppuY);
             spriteBatch.draw(blockTexture, block.getPosition().x * ppuX, block.getPosition().y * ppuY, Block.SIZE * ppuX, Block.SIZE * ppuY);
         }
     }
@@ -131,6 +133,7 @@ public class WorldRenderer {
                 studentFrame = student.isFacingLeft() ? studentFallLeft : studentFallRight;
             }
         }
+//        spriteBatch.draw(studentFrame, student.getPosition().x * ppuX, student.getPosition().y * ppuY, Student.SIZE * ppuX, Student.SIZE * ppuY);
         spriteBatch.draw(studentFrame, student.getPosition().x * ppuX, student.getPosition().y * ppuY, Student.SIZE * ppuX, Student.SIZE * ppuY);
     }
 

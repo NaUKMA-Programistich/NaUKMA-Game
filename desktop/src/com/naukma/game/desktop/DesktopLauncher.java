@@ -9,7 +9,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "#define Failure us";
 		config.width = 1200;
-		config.height = 800;
+		config.height = 900;
 		new LwjglApplication(new Main(), config);
 	}
 }
