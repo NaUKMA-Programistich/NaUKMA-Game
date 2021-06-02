@@ -8,35 +8,38 @@ import com.naukma.game.entity.*;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * Class WorldController
+ */
 public class WorldController {
 
-    public enum Keys {
-        LEFT,
-        RIGHT,
-        JUMP,
-        FIRE
-    }
-
+    /**
+     * LONG_JUMP_PRESS
+     */
     private static final long LONG_JUMP_PRESS = 150L;
+    /**
+     * ACCELERATION
+     */
     private static final float ACCELERATION = 200f;
+    /**
+     * GRAVITY
+     */
     private static final float GRAVITY = -40f;
+    /**
+     * MAX_JUMP_SPEED
+     */
     private static final float MAX_JUMP_SPEED = 10f;
+    /**
+     * DAMP
+     */
     private static final float DAMP = 0.90f;
+    /**
+     * MAX_VEL
+     */
     private static final float MAX_VEL = 2f;
-
-    private final World world;
-    public final Student student;
-    private long jumpPressedTime;
-    private boolean jumpingPressed;
-    private boolean grounded = false;
-    private final Pool<Rectangle> rectPool = new Pool<Rectangle>() {
-        @Override
-        protected Rectangle newObject() {
-            return new Rectangle();
-        }
-    };
-
+    /**
+     * keys
+     */
     static Map<Keys, Boolean> keys = new HashMap<>();
 
     static {
@@ -46,49 +49,120 @@ public class WorldController {
         keys.put(Keys.FIRE, false);
     }
 
-    private final Array<Block> collidableBlock = new Array<>();
-    private final Array<Mark> collidableMark = new Array<>();
-    private final Array<Bonus> collidableBonus = new Array<>();
+    /**
+     * Student
+     */
+    private final Student student;
+    /**
+     * World
+     */
+    private final World world;
+    /**
+     * Pool
+     */
+    private final Pool<Rectangle> rectPool = new Pool<Rectangle>() {
+        @Override
+        protected Rectangle newObject() {
+            return new Rectangle();
+        }
+    };
+    /**
+     * collectableBlock
+     */
+    private final Array<Block> collectableBlock = new Array<>();
+    /**
+     * collectableMark
+     */
+    private final Array<Mark> collectableMark = new Array<>();
+    /**
+     * collectableBonus
+     */
+    private final Array<Bonus> collectableBonus = new Array<>();
+    /**
+     * jumpPressedTime
+     */
+    private long jumpPressedTime;
+    /**
+     * jumpingPressed
+     */
+    private boolean jumpingPressed;
+    /**
+     * grounded
+     */
+    private boolean grounded = false;
 
+    /**
+     * World
+     *
+     * @param world world
+     */
     public WorldController(World world) {
         this.world = world;
         this.student = world.getStudent();
     }
 
+    /**
+     * leftPressed
+     */
     public void leftPressed() {
         keys.get(keys.put(Keys.LEFT, true));
     }
 
+    /**
+     * rightPressed
+     */
     public void rightPressed() {
         keys.get(keys.put(Keys.RIGHT, true));
     }
 
+    /**
+     * jumpPressed
+     */
     public void jumpPressed() {
         keys.get(keys.put(Keys.JUMP, true));
     }
 
+    /**
+     * firePressed
+     */
     public void firePressed() {
         keys.get(keys.put(Keys.FIRE, true));
     }
 
-
+    /**
+     * leftReleased
+     */
     public void leftReleased() {
         keys.get(keys.put(Keys.LEFT, false));
     }
 
+    /**
+     * rightReleased
+     */
     public void rightReleased() {
         keys.get(keys.put(Keys.RIGHT, false));
     }
 
+    /**
+     * jumpReleased
+     */
     public void jumpReleased() {
         jumpingPressed = false;
         keys.get(keys.put(Keys.JUMP, false));
     }
 
+    /**
+     * fireReleased
+     */
     public void fireReleased() {
         keys.get(keys.put(Keys.FIRE, false));
     }
 
+    /**
+     * Update
+     *
+     * @param delta time
+     */
     public void update(float delta) {
         processInput();
         if (grounded && student.getState().equals(Student.State.JUMPING)) {
@@ -115,6 +189,11 @@ public class WorldController {
         student.update(delta);
     }
 
+    /**
+     * checkCollisionWithBlocks
+     *
+     * @param delta time
+     */
     private void checkCollisionWithBlocks(float delta) {
         student.getVelocity().scl(delta);
         Rectangle studentRect = rectPool.obtain();
@@ -130,11 +209,11 @@ public class WorldController {
         }
 
 
-        populateCollidableBlocks(startX, startY, endX, endY);
+        populateCollectableBlocks(startX, startY, endX, endY);
         studentRect.x += student.getVelocity().x;
         world.getCollisionRects().clear();
 
-        for (Block block : collidableBlock) {
+        for (Block block : collectableBlock) {
             if (block == null) continue;
             if (studentRect.overlaps(block.getBounds())) {
                 student.getVelocity().x = 0;
@@ -143,15 +222,15 @@ public class WorldController {
             }
         }
 
-        for (Mark mark : collidableMark) {
+        for (Mark mark : collectableMark) {
             if (mark == null) continue;
             if (studentRect.overlaps(mark.getBounds())) {
-               // TODO
+                // TODO
                 break;
             }
         }
 
-        for (Bonus bonus : collidableBonus) {
+        for (Bonus bonus : collectableBonus) {
             if (bonus == null) continue;
             if (studentRect.overlaps(bonus.getBounds())) {
                 // TODO
@@ -169,11 +248,11 @@ public class WorldController {
             startY = endY = (int) Math.floor(student.getBounds().y + student.getBounds().height + student.getVelocity().y);
         }
 
-        populateCollidableBlocks(startX, startY, endX, endY);
+        populateCollectableBlocks(startX, startY, endX, endY);
 
         studentRect.y += student.getVelocity().y;
 
-        for (Block block : collidableBlock) {
+        for (Block block : collectableBlock) {
             if (block == null) continue;
             if (studentRect.overlaps(block.getBounds())) {
                 if (student.getVelocity().y < 0) {
@@ -185,7 +264,7 @@ public class WorldController {
             }
         }
 
-        for (Mark mark : collidableMark) {
+        for (Mark mark : collectableMark) {
             if (mark == null) continue;
             if (studentRect.overlaps(mark.getBounds())) {
                 // TODO
@@ -193,7 +272,7 @@ public class WorldController {
             }
         }
 
-        for (Bonus bonus : collidableBonus) {
+        for (Bonus bonus : collectableBonus) {
             if (bonus == null) continue;
             if (studentRect.overlaps(bonus.getBounds())) {
                 // TODO
@@ -212,22 +291,32 @@ public class WorldController {
 
     }
 
-    private void populateCollidableBlocks(int startX, int startY, int endX, int endY) {
-        collidableBlock.clear();
-        collidableMark.clear();
-        collidableBonus.clear();
+    /**
+     * populateCollectableBlocks
+     *
+     * @param startX startX
+     * @param startY startY
+     * @param endX   endX
+     * @param endY   endY
+     */
+    private void populateCollectableBlocks(int startX, int startY, int endX, int endY) {
+        collectableBlock.clear();
+        collectableMark.clear();
+        collectableBonus.clear();
         for (int x = startX; x <= endX; x++) {
             for (int y = startY; y <= endY; y++) {
                 if (x >= 0 && x < world.getLevel().getWidth() && y >= 0 && y < world.getLevel().getHeight()) {
-                    collidableBlock.add(world.getLevel().getBlock(x, y));
-                    collidableMark.add(world.getLevel().getMark(x, y));
-                    collidableBonus.add(world.getLevel().getBonus(x, y));
+                    collectableBlock.add(world.getLevel().getBlock(x, y));
+                    collectableMark.add(world.getLevel().getMark(x, y));
+                    collectableBonus.add(world.getLevel().getBonus(x, y));
                 }
             }
         }
     }
 
-
+    /**
+     * processInput
+     */
     private void processInput() {
         if (keys.get(Keys.JUMP)) {
             if (!student.getState().equals(Student.State.JUMPING)) {
@@ -272,5 +361,14 @@ public class WorldController {
 
     }
 
+    /**
+     * keys
+     */
+    public enum Keys {
+        LEFT,
+        RIGHT,
+        JUMP,
+        FIRE
+    }
 
 }

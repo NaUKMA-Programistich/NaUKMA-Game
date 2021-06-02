@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.naukma.game"},{"l":"com.naukma.game.controller"},{"l":"com.naukma.game.desktop"},{"l":"com.naukma.game.entity"},{"l":"com.naukma.game.screens"},{"l":"com.naukma.game.utils"},{"l":"com.naukma.game.view"}];updateSearchResults();

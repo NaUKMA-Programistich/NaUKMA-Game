@@ -8,17 +8,43 @@ import com.naukma.game.entity.Bonus;
 import com.naukma.game.entity.Level;
 import com.naukma.game.entity.Mark;
 
+/**
+ * Class LevelLoader
+ */
 public class LevelLoader {
 
-    private static final String LEVEL_PREFIX    = "levels/level-";
+    /**
+     * LEVEL_PREFIX
+     */
+    private static final String LEVEL_PREFIX = "levels/level-";
 
-    private static final int BLOCK = 0x000000; // black
-    private static final int EMPTY = 0xffffff; // white
-    private static final int START_POS = 0x2200ff; // blue
-    private static final int MARK_FINAL = 0xffff00; // yellow
-    private static final int BONUS_POINT = 0xff0000; // red
+    /**
+     * black
+     */
+    private static final int BLOCK = 0x000000;
+    /**
+     * white
+     */
+    private static final int EMPTY = 0xffffff;
+    /**
+     * blue
+     */
+    private static final int START_POS = 0x2200ff;
+    /**
+     * yellow
+     */
+    private static final int MARK_FINAL = 0xffff00;
+    /**
+     * red
+     */
+    private static final int BONUS_POINT = 0xff0000;
 
-
+    /**
+     * loadLevel
+     *
+     * @param number numberLevel
+     * @return Level
+     */
     public static Level loadLevel(int number) {
         Level level = new Level();
         Pixmap pixmap = new Pixmap(Gdx.files.internal(LEVEL_PREFIX + number + ".png"));

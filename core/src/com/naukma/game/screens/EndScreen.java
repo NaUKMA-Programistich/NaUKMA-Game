@@ -8,62 +8,81 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.ArrayList;
 
+/**
+ * class EndScreen
+ */
 public class EndScreen implements Screen {
-    private Game game;
 
-    SpriteBatch batch;
-    ShapeRenderer shapeRenderer;
-    BitmapFont font;
+    /**
+     * Game
+     */
+    private final Game game;
+    /**
+     * ArrayList results
+     */
+    private final ArrayList<String> results = new ArrayList<>();
+    /**
+     * SpriteBatch
+     */
+    private SpriteBatch batch;
+    /**
+     * BitmapFont
+     */
+    private BitmapFont font;
 
-    private ArrayList<Integer> points = new ArrayList<>();
-    private ArrayList<String> results = new ArrayList<>();
-
+    /**
+     * Constructor EndScreen
+     *
+     * @param game Game
+     */
     public EndScreen(Game game) {
         this.game = game;
-        points.clear();
+        ArrayList<Integer> points = new ArrayList<>();
         points.add(100);
         points.add(89);
         points.add(79);
         points.add(69);
         points.add(59);
 
-        results.clear();
         for (int i = 0; i < 5; i++) {
             String nextResult = "For the subject number " + i + " you got " + points.get(i) + " points. ";
 
             if (points.get(i) < 60) {
                 nextResult += "Your grade is F, bad job!";
-            } else if(points.get(i) <70){
+            } else if (points.get(i) < 70) {
                 nextResult += "Your grade is D, not very good job!";
-            } else if(points.get(i) <80){
+            } else if (points.get(i) < 80) {
                 nextResult += "Your grade is C, OK job!";
-            } else if(points.get(i) < 90){
+            } else if (points.get(i) < 90) {
                 nextResult += "Your grade is B, good job!";
-            } else if(points.get(i) < 100){
+            } else if (points.get(i) < 100) {
                 nextResult += "Your grade is A, great job!";
-            } else if(points.get(i) == 100){
+            } else if (points.get(i) == 100) {
                 nextResult += "Your grade is A+, excellent job!";
             }
             results.add(nextResult);
         }
     }
 
+    /**
+     * Show Screen
+     */
     @Override
     public void show() {
         batch = new SpriteBatch();
-        shapeRenderer = new ShapeRenderer();
+        ShapeRenderer shapeRenderer = new ShapeRenderer();
         font = new BitmapFont();
 
         Gdx.input.setInputProcessor(new InputAdapter() {
 
             @Override
-            public boolean keyDown (int keyCode) {
+            public boolean keyDown(int keyCode) {
 
-                if(keyCode == Input.Keys.ENTER){
+                if (keyCode == Input.Keys.ENTER) {
                     game.setScreen(new StartScreen(game));
                 }
 
-                if(keyCode == Input.Keys.ESCAPE){
+                if (keyCode == Input.Keys.ESCAPE) {
                     Gdx.app.exit();
                 }
 
@@ -73,6 +92,11 @@ public class EndScreen implements Screen {
         });
     }
 
+    /**
+     * Render Screen
+     *
+     * @param delta time
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, .25f, 0, 1);
@@ -88,26 +112,44 @@ public class EndScreen implements Screen {
         batch.end();
     }
 
+    /**
+     * Resize Screen
+     *
+     * @param width  width
+     * @param height height
+     */
     @Override
     public void resize(int width, int height) {
 
     }
 
+    /**
+     * Pause Screen
+     */
     @Override
     public void pause() {
 
     }
 
+    /**
+     * Resume Screen
+     */
     @Override
     public void resume() {
 
     }
 
+    /**
+     * Hide Screen
+     */
     @Override
     public void hide() {
 
     }
 
+    /**
+     * Exit Screen
+     */
     @Override
     public void dispose() {
 

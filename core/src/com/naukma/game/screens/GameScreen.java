@@ -2,22 +2,44 @@ package com.naukma.game.screens;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
-import com.naukma.game.entity.World;
 import com.naukma.game.controller.WorldController;
+import com.naukma.game.entity.World;
 import com.naukma.game.view.WorldRenderer;
 
+/**
+ * class GameScreen
+ */
 public class GameScreen implements Screen, InputProcessor {
 
+    /**
+     * WorldRenderer
+     */
     private WorldRenderer renderer;
+    /**
+     * WorldController
+     */
     private WorldController controller;
+    /**
+     * Game
+     */
+    private final Game game;
+    /**
+     * width, height
+     */
+    private int width, height;
 
-    private Game game;
-    public GameScreen(Game game){
+    /**
+     * Constructor GameScreen
+     *
+     * @param game Game
+     */
+    public GameScreen(Game game) {
         this.game = game;
     }
 
-    private int width, height;
-
+    /**
+     * Show Screen
+     */
     @Override
     public void show() {
         World world = new World();
@@ -26,6 +48,11 @@ public class GameScreen implements Screen, InputProcessor {
         Gdx.input.setInputProcessor(this);
     }
 
+    /**
+     * Render Screen
+     *
+     * @param delta time
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
@@ -35,6 +62,12 @@ public class GameScreen implements Screen, InputProcessor {
         renderer.render();
     }
 
+    /**
+     * resize
+     *
+     * @param width  width
+     * @param height height
+     */
     @Override
     public void resize(int width, int height) {
         renderer.setSize(width, height);
@@ -42,6 +75,9 @@ public class GameScreen implements Screen, InputProcessor {
         this.height = height;
     }
 
+    /**
+     * Pause Screen
+     */
     @Override
     public void pause() {
         Gdx.input.setInputProcessor(null);
@@ -52,16 +88,28 @@ public class GameScreen implements Screen, InputProcessor {
         Gdx.input.setInputProcessor(this);
     }
 
+    /**
+     * Hide Screen
+     */
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(null);
     }
 
+    /**
+     * Exit Screen
+     */
     @Override
     public void dispose() {
         Gdx.input.setInputProcessor(null);
     }
 
+    /**
+     * keyDown
+     *
+     * @param keycode int
+     * @return boolean
+     */
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.A)
@@ -75,6 +123,12 @@ public class GameScreen implements Screen, InputProcessor {
         return true;
     }
 
+    /**
+     * keyUp
+     *
+     * @param keycode int
+     * @return boolean
+     */
     @Override
     public boolean keyUp(int keycode) {
         if (keycode == Input.Keys.A)
@@ -91,11 +145,26 @@ public class GameScreen implements Screen, InputProcessor {
 
     }
 
+    /**
+     * keyTyped
+     *
+     * @param character char
+     * @return boolean
+     */
     @Override
     public boolean keyTyped(char character) {
         return false;
     }
 
+    /**
+     * touchDown
+     *
+     * @param x       x
+     * @param y       y
+     * @param pointer pointer
+     * @param button  button
+     * @return boolean
+     */
     @Override
     public boolean touchDown(int x, int y, int pointer, int button) {
         if (x < width / 2 && y > height / 2) {
@@ -107,6 +176,15 @@ public class GameScreen implements Screen, InputProcessor {
         return true;
     }
 
+    /**
+     * touchUp
+     *
+     * @param x       x
+     * @param y       y
+     * @param pointer pointer
+     * @param button  button
+     * @return boolean
+     */
     @Override
     public boolean touchUp(int x, int y, int pointer, int button) {
         if (x < width / 2 && y > height / 2) {
@@ -118,20 +196,41 @@ public class GameScreen implements Screen, InputProcessor {
         return true;
     }
 
+    /**
+     * touchDragged
+     *
+     * @param x       x
+     * @param y       y
+     * @param pointer pointer
+     * @return boolean
+     */
     @Override
     public boolean touchDragged(int x, int y, int pointer) {
         return false;
     }
 
+    /**
+     * mouseMoved
+     *
+     * @param screenX screenX
+     * @param screenY screenY
+     * @return boolean
+     */
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
         return false;
     }
 
+    /**
+     * scrolled
+     *
+     * @param amountX amountX
+     * @param amountY amountY
+     * @return boolean
+     */
     @Override
     public boolean scrolled(float amountX, float amountY) {
         return false;
     }
-
 
 }

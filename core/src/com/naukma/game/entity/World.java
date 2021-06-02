@@ -12,23 +12,60 @@ import java.util.List;
  */
 public class World {
 
-    Student student;
-    Level level;
+    /**
+     * Array
+     */
+    private final Array<Rectangle> collisionRects = new Array<>();
+    /**
+     * Student
+     */
+    private Student student;
+    /**
+     * Level
+     */
+    private Level level;
 
+    /**
+     * Constructor World
+     */
+    public World() {
+        createDemoWorld();
+    }
+
+    /**
+     * getCollisionRects
+     *
+     * @return Array
+     */
     public Array<Rectangle> getCollisionRects() {
         return collisionRects;
     }
 
+    /**
+     * getStudent
+     *
+     * @return Student
+     */
     public Student getStudent() {
         return student;
     }
 
+    /**
+     * getLevel
+     *
+     * @return level
+     */
     public Level getLevel() {
         return level;
     }
 
-    Array<Rectangle> collisionRects = new Array<>();
-
+    /**
+     * getDrawableBlocks
+     *
+     * @param width  width
+     * @param height height
+     * @return List
+     */
     public List<Block> getDrawableBlocks(int width, int height) {
         int x = (int) student.getPosition().x - width;
         int y = (int) student.getPosition().y - height;
@@ -59,6 +96,13 @@ public class World {
         return blocks;
     }
 
+    /**
+     * getDrawableMark
+     *
+     * @param width  width
+     * @param height height
+     * @return List
+     */
     public List<Mark> getDrawableMark(int width, int height) {
         int x = (int) student.getPosition().x - width;
         int y = (int) student.getPosition().y - height;
@@ -89,6 +133,13 @@ public class World {
         return marks;
     }
 
+    /**
+     * getDrawableBonus
+     *
+     * @param width  width
+     * @param height height
+     * @return List
+     */
     public List<Bonus> getDrawableBonus(int width, int height) {
         int[] needs = getxy(width, height);
         List<Bonus> bonuses = new ArrayList<>();
@@ -104,14 +155,12 @@ public class World {
         return blocks;
     }
 
-    public void createDemoWorld() {
+    /**
+     * createDemoWorld
+     */
+    private void createDemoWorld() {
         level = LevelLoader.loadLevel(1);
         student = new Student(level.getSpanPosition());
-    }
-
-
-    public World() {
-        createDemoWorld();
     }
 
 }

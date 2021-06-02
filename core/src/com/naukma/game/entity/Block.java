@@ -8,10 +8,24 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Block {
 
+    /**
+     * SIZE
+     */
     public static float SIZE = 1f;
-    Vector2 position = new Vector2();
+    /**
+     * position
+     */
+    Vector2 position;
+    /**
+     * bounds
+     */
     Rectangle bounds = new Rectangle();
 
+    /**
+     * Constructor Block
+     *
+     * @param position Vector2
+     */
     public Block(Vector2 position) {
         this.position = position;
         this.bounds.setX(position.x);
@@ -20,10 +34,20 @@ public class Block {
         this.bounds.height = SIZE;
     }
 
+    /**
+     * Getter
+     *
+     * @return getBounds
+     */
     public Rectangle getBounds() {
         return bounds;
     }
 
+    /**
+     * Getter
+     *
+     * @return getPosition
+     */
     public Vector2 getPosition() {
         return position;
     }

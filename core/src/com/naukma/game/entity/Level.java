@@ -2,106 +2,175 @@ package com.naukma.game.entity;
 
 import com.badlogic.gdx.math.Vector2;
 
-import java.util.Arrays;
-
+/**
+ * Class level
+ */
 public class Level {
 
+    /**
+     * width
+     */
     private int width;
+    /**
+     * height
+     */
     private int height;
+    /**
+     * blocks
+     */
     private Block[][] blocks;
+    /**
+     * marks
+     */
     private Mark[][] marks;
+    /**
+     * bonuses
+     */
     private Bonus[][] bonuses;
+    /**
+     * spanPosition
+     */
     private Vector2 spanPosition;
 
-
+    /**
+     * getWidth
+     *
+     * @return width
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     * setWidth
+     *
+     * @param width width
+     */
     public void setWidth(int width) {
         this.width = width;
     }
 
+    /**
+     * getHeight
+     *
+     * @return height
+     */
     public int getHeight() {
         return height;
     }
 
+    /**
+     * setHeight
+     *
+     * @param height height
+     */
     public void setHeight(int height) {
         this.height = height;
     }
 
+    /**
+     * getBlocks
+     *
+     * @return Block
+     */
     public Block[][] getBlocks() {
         return blocks;
     }
 
-    public Mark[][] getMarks() {
-        return marks;
-    }
-
-    public Bonus[][] getBonuses() {
-        return bonuses;
-    }
-
-    public void setMarks(Mark[][] marks) {
-        this.marks = marks;
-    }
-
-    public void setBonuses(Bonus[][] bonuses) {
-        this.bonuses = bonuses;
-    }
-
+    /**
+     * setBlocks
+     *
+     * @param blocks Block
+     */
     public void setBlocks(Block[][] blocks) {
         this.blocks = blocks;
     }
 
-    public Level() {
-        loadDemoLevel();
+    /**
+     * getMarks
+     *
+     * @return Mark
+     */
+    public Mark[][] getMarks() {
+        return marks;
     }
 
+    /**
+     * setMarks
+     *
+     * @param marks Mark
+     */
+    public void setMarks(Mark[][] marks) {
+        this.marks = marks;
+    }
+
+    /**
+     * getBonuses
+     *
+     * @return bonuses
+     */
+    public Bonus[][] getBonuses() {
+        return bonuses;
+    }
+
+    /**
+     * setBonuses
+     *
+     * @param bonuses Bonus
+     */
+    public void setBonuses(Bonus[][] bonuses) {
+        this.bonuses = bonuses;
+    }
+
+    /**
+     * getBlock
+     *
+     * @param x x
+     * @param y y
+     * @return Block
+     */
     public Block getBlock(int x, int y) {
         return blocks[x][y];
     }
+
+    /**
+     * getMark
+     *
+     * @param x x
+     * @param y y
+     * @return Mark
+     */
     public Mark getMark(int x, int y) {
         return marks[x][y];
     }
+
+    /**
+     * getBonus
+     *
+     * @param x x
+     * @param y y
+     * @return Bonus
+     */
     public Bonus getBonus(int x, int y) {
         return bonuses[x][y];
     }
 
+    /**
+     * getSpanPosition
+     *
+     * @return Vector2
+     */
     public Vector2 getSpanPosition() {
         return spanPosition;
     }
 
+    /**
+     * setSpanPosition
+     *
+     * @param spanPosition Vector2
+     */
     public void setSpanPosition(Vector2 spanPosition) {
         this.spanPosition = spanPosition;
     }
 
-    private void loadDemoLevel() {
-        width = 20;
-        height = 20;
-        blocks = new Block[width][height];
-        for (int col = 0; col < width; col++) {
-            for (int row = 0; row < height; row++) {
-                blocks[col][row] = null;
-            }
-        }
-
-        for (int col = 0; col < width; col++) {
-            for (int row = 0; row < height; row++) {
-                blocks[col][row] = new Block(new Vector2(col, row));
-            }
-//            blocks[col][0] = new Block(new Vector2(col, 0));
-//            blocks[col][6] = new Block(new Vector2(col, 6));
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "Level{" +
-                "width=" + width +
-                ", height=" + height +
-                ", blocks=" + Arrays.toString(blocks) +
-                ", spanPosition=" + spanPosition +
-                '}';
-    }
 }
