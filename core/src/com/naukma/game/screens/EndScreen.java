@@ -108,7 +108,7 @@ public class EndScreen implements Screen {
         font.draw(batch, results.get(2), Gdx.graphics.getWidth() * .25f, Gdx.graphics.getHeight() * .6f);
         font.draw(batch, results.get(3), Gdx.graphics.getWidth() * .25f, Gdx.graphics.getHeight() * .5f);
         font.draw(batch, results.get(4), Gdx.graphics.getWidth() * .25f, Gdx.graphics.getHeight() * .4f);
-        font.draw(batch, "Press Enter to restart the game, Esc to quit the game", Gdx.graphics.getWidth() * .75f, Gdx.graphics.getHeight() * .7f);
+        font.draw(batch, "Press Enter to restart the game, Esc to quit the game", Gdx.graphics.getWidth() * .6f, Gdx.graphics.getHeight() * .7f);
         batch.end();
     }
 

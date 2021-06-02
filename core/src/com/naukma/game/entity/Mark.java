@@ -15,4 +15,6 @@ public class Mark extends Block {
     public Mark(Vector2 position) {
         super(position);
     }
+
+    public static float SIZE = 0.75f;
 }

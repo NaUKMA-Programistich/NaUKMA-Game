@@ -30,14 +30,15 @@ public class LevelLoader {
      * blue
      */
     private static final int START_POS = 0x2200ff;
+    // private static final int START_POS = 0x0000ff;
     /**
      * yellow
      */
-    private static final int MARK_FINAL = 0xffff00;
+    private static final int MARK_FINAL = 0xff0000;
     /**
      * red
      */
-    private static final int BONUS_POINT = 0xff0000;
+    private static final int BONUS_POINT = 0xffff00;
 
     /**
      * loadLevel

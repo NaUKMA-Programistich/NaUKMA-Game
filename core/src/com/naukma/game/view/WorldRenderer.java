@@ -3,6 +3,7 @@ package com.naukma.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -20,11 +21,11 @@ public class WorldRenderer {
     /**
      * CAMERA_WIDTH
      */
-    private static final float CAMERA_WIDTH = 20f;
+    private static final float CAMERA_WIDTH = 32f;
     /**
      * CAMERA_HEIGHT
      */
-    private static final float CAMERA_HEIGHT = 15f;
+    private static final float CAMERA_HEIGHT = 18f;
     /**
      * RUNNING_FRAME_DURATION
      */
@@ -144,7 +145,6 @@ public class WorldRenderer {
     public WorldRenderer(World world, boolean debug) {
         this.world = world;
         this.cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
-//        this.cam.position.set(CAMERA_WIDTH / 2f, CAMERA_HEIGHT / 2f, 0);
         this.cam.position.set(CAMERA_WIDTH / 2f, CAMERA_HEIGHT / 2f, 0);
         this.cam.update();
         this.debug = debug;
@@ -162,7 +162,8 @@ public class WorldRenderer {
         studentIdleRight.flip(true, false);
         blockTexture = atlas.findRegion("block");
         markTexture = atlas.findRegion("block");
-        bonusTexture = atlas.findRegion("block");
+//        bonusTexture = atlas.findRegion("block");
+        bonusTexture = new TextureRegion(new Texture("images/coin.png"));
         TextureRegion[] walkLeftFrames = new TextureRegion[5];
 
         for (int i = 0; i < 5; i++) {
@@ -204,8 +205,7 @@ public class WorldRenderer {
      * Draw blocks
      */
     private void drawBlocks() {
-        for (Block block: world.getDrawableBlocks((int)CAMERA_WIDTH, (int)CAMERA_HEIGHT)) {
-//            spriteBatch.draw(blockTexture, block.getPosition().x * ppuX, block.getPosition().y * ppuY, Block.SIZE * ppuX, Block.SIZE * ppuY);
+        for (Block block : world.getDrawableBlocks((int) CAMERA_WIDTH, (int) CAMERA_HEIGHT)) {
             spriteBatch.draw(blockTexture, block.getPosition().x * ppuX, block.getPosition().y * ppuY, Block.SIZE * ppuX, Block.SIZE * ppuY);
         }
     }
@@ -215,7 +215,7 @@ public class WorldRenderer {
      */
     private void drawMark() {
         for (Mark mark : world.getDrawableMark((int) CAMERA_WIDTH, (int) CAMERA_HEIGHT)) {
-            spriteBatch.draw(markTexture, mark.getPosition().x * ppuX, mark.getPosition().y * ppuY, Mark.SIZE * ppuX, Mark.SIZE * ppuY);
+            spriteBatch.draw(markTexture, (mark.getPosition().x + 0.125f) * ppuX, (mark.getPosition().y + 0.125f) * ppuY, Mark.SIZE * ppuX, Mark.SIZE * ppuY);
         }
     }
 
@@ -224,7 +224,10 @@ public class WorldRenderer {
      */
     private void drawBonus() {
         for (Bonus bonus : world.getDrawableBonus((int) CAMERA_WIDTH, (int) CAMERA_HEIGHT)) {
-            spriteBatch.draw(bonusTexture, bonus.getPosition().x * ppuX, bonus.getPosition().y * ppuY, Bonus.SIZE * ppuX, Bonus.SIZE * ppuY);
+            if(world.getBonusIgnore().contains(bonus, false)){
+                continue;
+            }
+            spriteBatch.draw(bonusTexture, (bonus.getPosition().x + 0.125f) * ppuX, (bonus.getPosition().y + 0.125f) * ppuY, Bonus.SIZE * ppuX, Bonus.SIZE * ppuY);
         }
     }
 
@@ -243,7 +246,6 @@ public class WorldRenderer {
                 studentFrame = student.isFacingLeft() ? studentFallLeft : studentFallRight;
             }
         }
-//        spriteBatch.draw(studentFrame, student.getPosition().x * ppuX, student.getPosition().y * ppuY, Student.SIZE * ppuX, Student.SIZE * ppuY);
         spriteBatch.draw(studentFrame, student.getPosition().x * ppuX, student.getPosition().y * ppuY, Student.SIZE * ppuX, Student.SIZE * ppuY);
     }
 

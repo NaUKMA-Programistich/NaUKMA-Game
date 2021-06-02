@@ -25,11 +25,22 @@ public class World {
      */
     private Level level;
 
+    private Array<Bonus> bonusIgnore = new Array<>();
+
+    public Array<Bonus> getBonusIgnore() {
+        return bonusIgnore;
+    }
+
     /**
      * Constructor World
      */
     public World() {
         createDemoWorld();
+    }
+
+    public World(int levelNum){
+        level = LevelLoader.loadLevel(levelNum);
+        student = new Student(level.getSpanPosition());
     }
 
     /**
@@ -67,26 +78,11 @@ public class World {
      * @return List
      */
     public List<Block> getDrawableBlocks(int width, int height) {
-        int x = (int) student.getPosition().x - width;
-        int y = (int) student.getPosition().y - height;
-        if (x < 0) {
-            x = 0;
-        }
-        if (y < 0) {
-            y = 0;
-        }
-        int x2 = x + 2 * width;
-        int y2 = y + 2 * height;
-        if (x2 > level.getWidth()) {
-            x2 = level.getWidth() - 1;
-        }
-        if (y2 > level.getHeight()) {
-            y2 = level.getHeight() - 1;
-        }
+        int[] needs = getXY(width, height);
         List<Block> blocks = new ArrayList<>();
         Block block;
-        for (int col = x; col <= x2; col++) {
-            for (int row = y; row <= y2; row++) {
+        for (int col = needs[0]; col <= needs[2]; col++) {
+            for (int row = needs[1]; row <= needs[3]; row++) {
                 block = level.getBlocks()[col][row];
                 if (block != null) {
                     blocks.add(block);
@@ -104,26 +100,11 @@ public class World {
      * @return List
      */
     public List<Mark> getDrawableMark(int width, int height) {
-        int x = (int) student.getPosition().x - width;
-        int y = (int) student.getPosition().y - height;
-        if (x < 0) {
-            x = 0;
-        }
-        if (y < 0) {
-            y = 0;
-        }
-        int x2 = x + 2 * width;
-        int y2 = y + 2 * height;
-        if (x2 > level.getWidth()) {
-            x2 = level.getWidth() - 1;
-        }
-        if (y2 > level.getHeight()) {
-            y2 = level.getHeight() - 1;
-        }
+        int[] needs = getXY(width, height);
         List<Mark> marks = new ArrayList<>();
         Mark mark;
-        for (int col = x; col <= x2; col++) {
-            for (int row = y; row <= y2; row++) {
+        for (int col = needs[0]; col <= needs[2]; col++) {
+            for (int row = needs[1]; row <= needs[3]; row++) {
                 mark = level.getMarks()[col][row];
                 if (mark != null) {
                     marks.add(mark);
@@ -141,7 +122,7 @@ public class World {
      * @return List
      */
     public List<Bonus> getDrawableBonus(int width, int height) {
-        int[] needs = getxy(width, height);
+        int[] needs = getXY(width, height);
         List<Bonus> bonuses = new ArrayList<>();
         Bonus bonus;
         for (int col = needs[0]; col <= needs[2]; col++) {
@@ -152,7 +133,27 @@ public class World {
                 }
             }
         }
-        return blocks;
+        return bonuses;
+    }
+
+    public int[] getXY(int width, int height){
+        int x = (int) student.getPosition().x - width;
+        int y = (int) student.getPosition().y - height;
+        if (x < 0) {
+            x = 0;
+        }
+        if (y < 0) {
+            y = 0;
+        }
+        int x2 = x + 2 * width;
+        int y2 = y + 2 * height;
+        if (x2 > level.getWidth()) {
+            x2 = level.getWidth() - 1;
+        }
+        if (y2 > level.getHeight()) {
+            y2 = level.getHeight() - 1;
+        }
+        return new int[]{x,y,x2,y2};
     }
 
     /**

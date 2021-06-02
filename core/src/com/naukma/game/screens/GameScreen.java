@@ -28,6 +28,9 @@ public class GameScreen implements Screen, InputProcessor {
      */
     private int width, height;
 
+    public static int levelNumber = 1;
+    public static boolean isNextLevel = false;
+
     /**
      * Constructor GameScreen
      *
@@ -37,12 +40,17 @@ public class GameScreen implements Screen, InputProcessor {
         this.game = game;
     }
 
+    public GameScreen(Game game, int levelNumber){
+        this.game = game;
+        this.levelNumber = levelNumber;
+    }
+
     /**
      * Show Screen
      */
     @Override
     public void show() {
-        World world = new World();
+        World world = new World(levelNumber);
         renderer = new WorldRenderer(world, false);
         controller = new WorldController(world);
         Gdx.input.setInputProcessor(this);
@@ -60,6 +68,11 @@ public class GameScreen implements Screen, InputProcessor {
 
         controller.update(delta);
         renderer.render();
+
+        if(isNextLevel){
+            isNextLevel = false;
+            game.setScreen(new GameScreen(game, levelNumber));
+        }
     }
 
     /**

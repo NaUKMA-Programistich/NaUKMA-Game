@@ -46,10 +46,9 @@ public class MainScreen implements Screen {
 
             @Override
             public boolean touchDown(int x, int y, int pointer, int button) {
-                if (currentScreen == Screens.MAIN_GAME) {
-
-
-                }
+//                if (currentScreen == Screens.MAIN_GAME) {
+//
+//                }
                 return true;
             }
         });
@@ -63,25 +62,10 @@ public class MainScreen implements Screen {
     @Override
     public void render(float delta) {
         if (currentScreen == Screens.TITLE) {
-//            Gdx.gl.glClearColor(0, .25f, 0, 1);
-//            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//            batch.begin();
-//            font.draw(batch, "Title Screen", Gdx.graphics.getWidth()*.25f, Gdx.graphics.getHeight() * .75f);
-//            font.draw(batch, "Finish session to win.", Gdx.graphics.getWidth()*.25f, Gdx.graphics.getHeight() * .5f);
-//            font.draw(batch, "Press space to play.", Gdx.graphics.getWidth()*.25f, Gdx.graphics.getHeight() * .25f);
-//            batch.end();
             game.setScreen(new StartScreen(game));
         } else if (currentScreen == Screens.MAIN_GAME) {
-            // Gdx.gl.glClearColor(0, 0, .25f, 1);
-            //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             game.setScreen(new GameScreen(game));
         } else if (currentScreen == Screens.GAME_OVER) {
-//            Gdx.gl.glClearColor(.25f, 0, 0, 1);
-//            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//            batch.begin();
-//            font.draw(batch, "You win!", Gdx.graphics.getWidth()*.25f, Gdx.graphics.getHeight() * .75f);
-//            font.draw(batch, "Press enter to restart.", Gdx.graphics.getWidth()*.25f, Gdx.graphics.getHeight() * .25f);
-//            batch.end();
             game.setScreen(new EndScreen(game));
         }
     }

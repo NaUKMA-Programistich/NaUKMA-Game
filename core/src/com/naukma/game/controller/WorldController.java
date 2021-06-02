@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.naukma.game.entity.*;
+import com.naukma.game.screens.GameScreen;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -225,7 +226,8 @@ public class WorldController {
         for (Mark mark : collectableMark) {
             if (mark == null) continue;
             if (studentRect.overlaps(mark.getBounds())) {
-                // TODO
+                GameScreen.levelNumber++;
+                GameScreen.isNextLevel = true;
                 break;
             }
         }
@@ -233,7 +235,7 @@ public class WorldController {
         for (Bonus bonus : collectableBonus) {
             if (bonus == null) continue;
             if (studentRect.overlaps(bonus.getBounds())) {
-                // TODO
+                world.getBonusIgnore().add(bonus);
                 break;
             }
         }
