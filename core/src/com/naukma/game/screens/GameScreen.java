@@ -52,7 +52,7 @@ public class GameScreen implements Screen, InputProcessor {
 
     public GameScreen(Game game, int levelNumber) {
         this.game = game;
-        this.levelNumber = levelNumber;
+        GameScreen.levelNumber = levelNumber;
     }
 
     /**
@@ -100,15 +100,19 @@ public class GameScreen implements Screen, InputProcessor {
 
     public void checkNextLevel() {
         if (isNextLevel) {
-            if(levelNumber == 5){
-                isNextLevel = false;
-                levelNumber = 1;
-                game.setScreen(new EndScreen(game));
+            if(levelNumber == 6){
+                gotoEndScreen();
                 return;
             }
             isNextLevel = false;
             game.setScreen(new GameScreen(game, levelNumber));
         }
+    }
+
+    private void gotoEndScreen(){
+        isNextLevel = false;
+        levelNumber = 1;
+        game.setScreen(new EndScreen(game));
     }
 
     /**
