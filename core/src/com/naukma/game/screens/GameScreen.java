@@ -53,6 +53,7 @@ public class GameScreen implements Screen, InputProcessor {
     public GameScreen(Game game, int levelNumber) {
         this.game = game;
         GameScreen.levelNumber = levelNumber;
+        switchCameraSize();
     }
 
     /**
@@ -68,13 +69,10 @@ public class GameScreen implements Screen, InputProcessor {
     }
 
     public void switchCameraSize() {
-        switch (levelNumber) {
-            case 1:
-                WorldRenderer.setCameraHeight(18f);
-                break;
-            case 2:
-                WorldRenderer.setCameraHeight(16f);
-                break;
+        if (levelNumber == 1) {
+            WorldRenderer.setCameraHeight(18f);
+        } else {
+            WorldRenderer.setCameraHeight(16f);
         }
     }
 
@@ -98,9 +96,17 @@ public class GameScreen implements Screen, InputProcessor {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
+    public static void resetPoints() {
+        firstPoints = 0;
+        secondPoints = 0;
+        thirdPoints = 0;
+        fourthPoints = 0;
+        fifthPoints = 0;
+    }
+
     public void checkNextLevel() {
         if (isNextLevel) {
-            if(levelNumber == 6){
+            if (levelNumber == 6) {
                 gotoEndScreen();
                 return;
             }
@@ -109,7 +115,7 @@ public class GameScreen implements Screen, InputProcessor {
         }
     }
 
-    private void gotoEndScreen(){
+    private void gotoEndScreen() {
         isNextLevel = false;
         levelNumber = 1;
         game.setScreen(new EndScreen(game));

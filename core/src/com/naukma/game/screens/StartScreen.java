@@ -44,6 +44,18 @@ public class StartScreen implements Screen {
             public boolean keyDown(int keyCode) {
                 if (keyCode == Input.Keys.SPACE)
                     game.setScreen(new GameScreen(game));
+                if (keyCode == Input.Keys.NUM_1)
+                    game.setScreen(new GameScreen(game, 1));
+                if (keyCode == Input.Keys.NUM_2)
+                    game.setScreen(new GameScreen(game, 2));
+                if (keyCode == Input.Keys.NUM_3)
+                    game.setScreen(new GameScreen(game, 3));
+                if (keyCode == Input.Keys.NUM_4)
+                    game.setScreen(new GameScreen(game, 4));
+                if (keyCode == Input.Keys.NUM_5)
+                    game.setScreen(new GameScreen(game, 5));
+                if(keyCode == Input.Keys.END)
+                    game.setScreen(new EndScreen(game));
                 return true;
             }
         });
