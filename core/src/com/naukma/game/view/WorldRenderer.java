@@ -21,11 +21,12 @@ public class WorldRenderer {
     /**
      * CAMERA_WIDTH
      */
-    private static final float CAMERA_WIDTH = 32f;
+    private static float CAMERA_WIDTH = 32f;
+
     /**
      * CAMERA_HEIGHT
      */
-    private static final float CAMERA_HEIGHT = 18f;
+    private static float CAMERA_HEIGHT = 18f;
     /**
      * RUNNING_FRAME_DURATION
      */
@@ -125,6 +126,10 @@ public class WorldRenderer {
         this.debug = debug;
     }
 
+    public static void setCameraHeight(float cameraHeight) {
+        CAMERA_HEIGHT = cameraHeight;
+    }
+
     /**
      * Set Size
      *
@@ -161,8 +166,9 @@ public class WorldRenderer {
         studentIdleRight = new TextureRegion(studentIdleLeft);
         studentIdleRight.flip(true, false);
         blockTexture = atlas.findRegion("block");
-        markTexture = atlas.findRegion("block");
+//        markTexture = atlas.findRegion("block");
 //        bonusTexture = atlas.findRegion("block");
+        markTexture = new TextureRegion(new Texture("images/finalCoin.png"));
         bonusTexture = new TextureRegion(new Texture("images/coin.png"));
         TextureRegion[] walkLeftFrames = new TextureRegion[5];
 

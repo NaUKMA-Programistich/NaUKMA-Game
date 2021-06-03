@@ -38,14 +38,19 @@ public class EndScreen implements Screen {
     public EndScreen(Game game) {
         this.game = game;
         ArrayList<Integer> points = new ArrayList<>();
-        points.add(100);
-        points.add(89);
-        points.add(79);
-        points.add(69);
-        points.add(59);
+//        points.add(100);
+//        points.add(89);
+//        points.add(79);
+//        points.add(69);
+//        points.add(59);
+        points.add(GameScreen.firstPoints);
+        points.add(GameScreen.secondPoints);
+        points.add(GameScreen.thirdPoints);
+        points.add(GameScreen.fourthPoints);
+        points.add(GameScreen.fifthPoints);
 
         for (int i = 0; i < 5; i++) {
-            String nextResult = "For the subject number " + i + " you got " + points.get(i) + " points. ";
+            String nextResult = "For the subject number " + (i + 1) + " you got " + points.get(i) + " points. ";
 
             if (points.get(i) < 60) {
                 nextResult += "Your grade is F, bad job!";

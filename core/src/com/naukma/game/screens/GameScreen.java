@@ -6,6 +6,8 @@ import com.naukma.game.controller.WorldController;
 import com.naukma.game.entity.World;
 import com.naukma.game.view.WorldRenderer;
 
+import java.util.ArrayList;
+
 /**
  * class GameScreen
  */
@@ -28,6 +30,14 @@ public class GameScreen implements Screen, InputProcessor {
      */
     private int width, height;
 
+    public static int firstPoints = 0;
+    public static int secondPoints = 0;
+    public static int thirdPoints = 0;
+    public static int fourthPoints = 0;
+    public static int fifthPoints = 0;
+
+    public static ArrayList<Integer> pointsHolder = new ArrayList<>(5);
+
     public static int levelNumber = 1;
     public static boolean isNextLevel = false;
 
@@ -40,7 +50,7 @@ public class GameScreen implements Screen, InputProcessor {
         this.game = game;
     }
 
-    public GameScreen(Game game, int levelNumber){
+    public GameScreen(Game game, int levelNumber) {
         this.game = game;
         this.levelNumber = levelNumber;
     }
@@ -51,9 +61,21 @@ public class GameScreen implements Screen, InputProcessor {
     @Override
     public void show() {
         World world = new World(levelNumber);
+        switchCameraSize();
         renderer = new WorldRenderer(world, false);
         controller = new WorldController(world);
         Gdx.input.setInputProcessor(this);
+    }
+
+    public void switchCameraSize() {
+        switch (levelNumber) {
+            case 1:
+                WorldRenderer.setCameraHeight(18f);
+                break;
+            case 2:
+                WorldRenderer.setCameraHeight(16f);
+                break;
+        }
     }
 
     /**
@@ -63,13 +85,27 @@ public class GameScreen implements Screen, InputProcessor {
      */
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        clearScreen();
 
         controller.update(delta);
         renderer.render();
 
-        if(isNextLevel){
+        checkNextLevel();
+    }
+
+    public void clearScreen() {
+        Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    }
+
+    public void checkNextLevel() {
+        if (isNextLevel) {
+            if(levelNumber == 5){
+                isNextLevel = false;
+                levelNumber = 1;
+                game.setScreen(new EndScreen(game));
+                return;
+            }
             isNextLevel = false;
             game.setScreen(new GameScreen(game, levelNumber));
         }

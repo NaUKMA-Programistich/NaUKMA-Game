@@ -1,5 +1,6 @@
 package com.naukma.game.controller;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
@@ -166,18 +167,27 @@ public class WorldController {
      */
     public void update(float delta) {
         processInput();
+
+        setAcceleration(delta);
+
+        checkCollisionWithBlocks(delta);
+
+        checkForOverVelocity();
+
+        student.update(delta);
+    }
+
+    private void setAcceleration(float delta){
         if (grounded && student.getState().equals(Student.State.JUMPING)) {
             student.setState(Student.State.IDLE);
-
         }
         student.getAcceleration().y = GRAVITY;
         student.getAcceleration().scl(delta);
         student.getVelocity().add(student.getAcceleration().x, student.getAcceleration().y);
+    }
 
-        checkCollisionWithBlocks(delta);
-
+    private void checkForOverVelocity(){
         student.getVelocity().x *= DAMP;
-
 
         if (student.getVelocity().x > MAX_VEL) {
             student.getVelocity().x = MAX_VEL;
@@ -186,8 +196,6 @@ public class WorldController {
         if (student.getVelocity().x < -MAX_VEL) {
             student.getVelocity().x = -MAX_VEL;
         }
-
-        student.update(delta);
     }
 
     /**
@@ -226,6 +234,23 @@ public class WorldController {
         for (Mark mark : collectableMark) {
             if (mark == null) continue;
             if (studentRect.overlaps(mark.getBounds())) {
+                switch(GameScreen.levelNumber){
+                    case 1:
+                        GameScreen.firstPoints += 40;
+                        break;
+                    case 2:
+                        GameScreen.secondPoints += 40;
+                        break;
+                    case 3:
+                        GameScreen.thirdPoints += 40;
+                        break;
+                    case 4:
+                        GameScreen.fourthPoints += 40;
+                        break;
+                    case 5:
+                        GameScreen.fifthPoints += 40;
+                        break;
+                }
                 GameScreen.levelNumber++;
                 GameScreen.isNextLevel = true;
                 break;
@@ -235,7 +260,26 @@ public class WorldController {
         for (Bonus bonus : collectableBonus) {
             if (bonus == null) continue;
             if (studentRect.overlaps(bonus.getBounds())) {
-                world.getBonusIgnore().add(bonus);
+                if(!world.getBonusIgnore().contains(bonus, false)){
+                    world.getBonusIgnore().add(bonus);
+                    switch(GameScreen.levelNumber){
+                        case 1:
+                            GameScreen.firstPoints += 6;
+                            break;
+                        case 2:
+                            GameScreen.secondPoints += 6;
+                            break;
+                        case 3:
+                            GameScreen.thirdPoints += 6;
+                            break;
+                        case 4:
+                            GameScreen.fourthPoints += 6;
+                            break;
+                        case 5:
+                            GameScreen.fifthPoints += 6;
+                            break;
+                    }
+                }
                 break;
             }
         }

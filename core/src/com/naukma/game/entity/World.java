@@ -35,12 +35,11 @@ public class World {
      * Constructor World
      */
     public World() {
-        createDemoWorld();
+        createWorld(1);
     }
 
     public World(int levelNum){
-        level = LevelLoader.loadLevel(levelNum);
-        student = new Student(level.getSpanPosition());
+       createWorld(levelNum);
     }
 
     /**
@@ -161,6 +160,11 @@ public class World {
      */
     private void createDemoWorld() {
         level = LevelLoader.loadLevel(1);
+        student = new Student(level.getSpanPosition());
+    }
+
+    private void createWorld(int levelNum){
+        level = LevelLoader.loadLevel(levelNum);
         student = new Student(level.getSpanPosition());
     }
 
