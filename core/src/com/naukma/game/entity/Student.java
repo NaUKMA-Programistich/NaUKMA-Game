@@ -151,7 +151,6 @@ public class Student {
         IDLE,
         WALKING,
         JUMPING,
-        DYING //
     }
 
 }

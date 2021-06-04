@@ -1,10 +1,10 @@
 package com.naukma.game.screens;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.ArrayList;
 
@@ -30,6 +30,9 @@ public class EndScreen implements Screen {
      */
     private BitmapFont font;
 
+    Music endMusic = Gdx.audio.newMusic(Gdx.files.internal("music/end.wav"));
+
+
     /**
      * Constructor EndScreen
      *
@@ -38,11 +41,6 @@ public class EndScreen implements Screen {
     public EndScreen(Game game) {
         this.game = game;
         ArrayList<Integer> points = new ArrayList<>();
-//        points.add(100);
-//        points.add(89);
-//        points.add(79);
-//        points.add(69);
-//        points.add(59);
         points.add(GameScreen.firstPoints);
         points.add(GameScreen.secondPoints);
         points.add(GameScreen.thirdPoints);
@@ -74,20 +72,23 @@ public class EndScreen implements Screen {
      */
     @Override
     public void show() {
+        endMusic.setLooping(true);
+        endMusic.play();
         batch = new SpriteBatch();
-        ShapeRenderer shapeRenderer = new ShapeRenderer();
         font = new BitmapFont();
-
         Gdx.input.setInputProcessor(new InputAdapter() {
 
             @Override
             public boolean keyDown(int keyCode) {
-
                 if (keyCode == Input.Keys.ENTER) {
+                    endMusic.setLooping(false);
+                    endMusic.stop();
                     game.setScreen(new StartScreen(game));
                 }
 
                 if (keyCode == Input.Keys.ESCAPE) {
+                    endMusic.setLooping(false);
+                    endMusic.stop();
                     Gdx.app.exit();
                 }
 

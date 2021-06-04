@@ -1,6 +1,7 @@
 package com.naukma.game.screens;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.naukma.game.controller.WorldController;
 import com.naukma.game.entity.World;
@@ -36,10 +37,11 @@ public class GameScreen implements Screen, InputProcessor {
     public static int fourthPoints = 0;
     public static int fifthPoints = 0;
 
-    public static ArrayList<Integer> pointsHolder = new ArrayList<>(5);
-
     public static int levelNumber = 1;
     public static boolean isNextLevel = false;
+
+    Music gameMusic = Gdx.audio.newMusic(Gdx.files.internal("music/game.wav"));
+
 
     /**
      * Constructor GameScreen
@@ -60,6 +62,8 @@ public class GameScreen implements Screen, InputProcessor {
      */
     @Override
     public void show() {
+        gameMusic.setLooping(true);
+        gameMusic.play();
         World world = new World(levelNumber);
         switchCameraSize();
         renderer = new WorldRenderer(world, false);
@@ -100,6 +104,8 @@ public class GameScreen implements Screen, InputProcessor {
 
     public void checkNextLevel() {
         if (isNextLevel) {
+            gameMusic.setLooping(false);
+            gameMusic.stop();
             if(levelNumber == 6){
                 gotoEndScreen();
                 return;

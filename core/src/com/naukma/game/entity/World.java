@@ -31,13 +31,10 @@ public class World {
         return bonusIgnore;
     }
 
+
     /**
      * Constructor World
      */
-    public World() {
-        createWorld(1);
-    }
-
     public World(int levelNum){
        createWorld(levelNum);
     }

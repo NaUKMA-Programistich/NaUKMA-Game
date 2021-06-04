@@ -46,9 +46,6 @@ public class MainScreen implements Screen {
 
             @Override
             public boolean touchDown(int x, int y, int pointer, int button) {
-//                if (currentScreen == Screens.MAIN_GAME) {
-//
-//                }
                 return true;
             }
         });
@@ -113,14 +110,6 @@ public class MainScreen implements Screen {
 
     }
 
-    /**
-     * getCurrentScreen
-     *
-     * @return Screens
-     */
-    public Screens getCurrentScreen() {
-        return currentScreen;
-    }
 
     /**
      * Screens

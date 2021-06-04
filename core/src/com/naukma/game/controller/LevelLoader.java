@@ -23,14 +23,9 @@ public class LevelLoader {
      */
     private static final int BLOCK = 0x000000;
     /**
-     * white
-     */
-    private static final int EMPTY = 0xffffff;
-    /**
      * blue
      */
     private static final int START_POS = 0x2200ff;
-    // private static final int START_POS = 0x0000ff;
     /**
      * yellow
      */

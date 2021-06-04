@@ -3,7 +3,6 @@ package com.naukma.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -21,8 +20,7 @@ public class WorldRenderer {
     /**
      * CAMERA_WIDTH
      */
-    private static float CAMERA_WIDTH = 32f;
-
+    private static final float CAMERA_WIDTH = 32f;
     /**
      * CAMERA_HEIGHT
      */
