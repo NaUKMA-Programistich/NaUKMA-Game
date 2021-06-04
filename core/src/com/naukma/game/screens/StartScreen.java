@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import static com.naukma.game.Main.MUSIC_VOLUME;
+
 /**
  * class StartScreen
  */
@@ -43,6 +45,7 @@ public class StartScreen implements Screen {
     @Override
     public void show() {
         menuMusic.setLooping(true);
+        menuMusic.setVolume(MUSIC_VOLUME);
         menuMusic.play();
         batch = new SpriteBatch();
         font = new BitmapFont();

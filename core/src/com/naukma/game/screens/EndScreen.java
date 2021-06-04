@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.ArrayList;
 
+import static com.naukma.game.Main.MUSIC_VOLUME;
+
 /**
  * class EndScreen
  */
@@ -73,6 +75,7 @@ public class EndScreen implements Screen {
     @Override
     public void show() {
         endMusic.setLooping(true);
+        endMusic.setVolume(MUSIC_VOLUME);
         endMusic.play();
         batch = new SpriteBatch();
         font = new BitmapFont();

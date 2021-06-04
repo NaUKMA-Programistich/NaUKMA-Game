@@ -9,6 +9,8 @@ import com.naukma.game.view.WorldRenderer;
 
 import java.util.ArrayList;
 
+import static com.naukma.game.Main.MUSIC_VOLUME;
+
 /**
  * class GameScreen
  */
@@ -63,6 +65,7 @@ public class GameScreen implements Screen, InputProcessor {
     @Override
     public void show() {
         gameMusic.setLooping(true);
+        gameMusic.setVolume(MUSIC_VOLUME);
         gameMusic.play();
         World world = new World(levelNumber);
         switchCameraSize();
