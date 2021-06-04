@@ -25,7 +25,7 @@ public class World {
      */
     private Level level;
 
-    private Array<Bonus> bonusIgnore = new Array<>();
+    private final Array<Bonus> bonusIgnore = new Array<>();
 
     public Array<Bonus> getBonusIgnore() {
         return bonusIgnore;
@@ -156,13 +156,10 @@ public class World {
     }
 
     /**
-     * createDemoWorld
+     * Create World
+     *
+     * @param levelNum levelNum
      */
-    private void createDemoWorld() {
-        level = LevelLoader.loadLevel(1);
-        student = new Student(level.getSpanPosition());
-    }
-
     private void createWorld(int levelNum){
         level = LevelLoader.loadLevel(levelNum);
         student = new Student(level.getSpanPosition());

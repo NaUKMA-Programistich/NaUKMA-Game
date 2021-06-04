@@ -166,10 +166,8 @@ public class WorldRenderer {
         studentIdleRight = new TextureRegion(studentIdleLeft);
         studentIdleRight.flip(true, false);
         blockTexture = atlas.findRegion("block");
-//        markTexture = atlas.findRegion("block");
-//        bonusTexture = atlas.findRegion("block");
-        markTexture = new TextureRegion(new Texture("images/finalCoin.png"));
-        bonusTexture = new TextureRegion(new Texture("images/coin.png"));
+        markTexture = atlas.findRegion("finalCoin");
+        bonusTexture = atlas.findRegion("coin");
         TextureRegion[] walkLeftFrames = new TextureRegion[5];
 
         for (int i = 0; i < 5; i++) {

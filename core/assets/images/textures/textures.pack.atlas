@@ -67,3 +67,17 @@ bobup
   orig: 24, 28
   offset: 0, 0
   index: -1
+coin
+  rotate: false
+  xy: 234, 42
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+finalCoin
+  rotate: false
+  xy: 78, 12
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
