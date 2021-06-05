@@ -49,6 +49,8 @@ public class EndScreen implements Screen {
         points.add(GameScreen.fourthPoints);
         points.add(GameScreen.fifthPoints);
 
+        GameScreen.resetPoints();
+
         for (int i = 0; i < 5; i++) {
             String nextResult = "For the subject number " + (i + 1) + " you got " + points.get(i) + " points. ";
 
