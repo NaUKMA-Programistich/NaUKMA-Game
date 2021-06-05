@@ -118,6 +118,16 @@ public class GameScreen implements Screen, InputProcessor {
         }
     }
 
+
+
+    public static void resetPoints() {
+        firstPoints = 0;
+        secondPoints = 0;
+        thirdPoints = 0;
+        fourthPoints = 0;
+        fifthPoints = 0;
+    }
+
     private void gotoEndScreen(){
         isNextLevel = false;
         levelNumber = 1;
