@@ -16,6 +16,9 @@ public class Bonus extends Block {
         super(position);
     }
 
+    /**
+     * Size
+     */
     public static float SIZE = 0.75f;
 
 }

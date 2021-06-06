@@ -46,9 +46,18 @@ public class WorldController {
      */
     static Map<Keys, Boolean> keys = new HashMap<>();
 
+    /**
+     * SOUND_VOLUME
+     */
     public static final float SOUND_VOLUME = 0.3f;
 
+    /**
+     * levelEnd
+     */
     Sound levelEnd = Gdx.audio.newSound(Gdx.files.internal("music/levelUp.mp3"));
+    /**
+     * coinPickup
+     */
     Sound coinPickup = Gdx.audio.newSound(Gdx.files.internal("music/coinPickup.wav"));
 
     static {
@@ -174,16 +183,16 @@ public class WorldController {
      */
     public void update(float delta) {
         processInput();
-
         setAcceleration(delta);
-
         checkCollisionWithBlocks(delta);
-
         checkForOverVelocity();
-
         student.update(delta);
     }
 
+    /**
+     * setAcceleration
+     * @param delta time
+     */
     private void setAcceleration(float delta) {
         if (grounded && student.getState().equals(Student.State.JUMPING)) {
             student.setState(Student.State.IDLE);

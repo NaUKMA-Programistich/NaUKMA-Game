@@ -25,6 +25,9 @@ public class GameScreen implements Screen, InputProcessor {
      * Game
      */
     private final Game game;
+    /**
+     * gameMusic
+     */
     Music gameMusic = Gdx.audio.newMusic(Gdx.files.internal("music/game.wav"));
     /**
      * WorldRenderer
@@ -49,11 +52,19 @@ public class GameScreen implements Screen, InputProcessor {
         this.game = game;
     }
 
+    /**
+     * GameScreen
+     * @param game Game
+     * @param levelNumber levelNumber
+     */
     public GameScreen(Game game, int levelNumber) {
         this.game = game;
         GameScreen.levelNumber = levelNumber;
     }
 
+    /**
+     * resetPoints
+     */
     public static void resetPoints() {
         firstPoints = 0;
         secondPoints = 0;
@@ -73,12 +84,18 @@ public class GameScreen implements Screen, InputProcessor {
         Gdx.input.setInputProcessor(this);
     }
 
+    /**
+     * startWorld
+     */
     private void startWorld() {
         World world = new World(levelNumber);
         renderer = new WorldRenderer(world, false);
         controller = new WorldController(world);
     }
 
+    /**
+     * startGameMusic
+     */
     private void startGameMusic() {
         if (gameMusic.isPlaying()) {
             gameMusic.stop();
@@ -88,6 +105,9 @@ public class GameScreen implements Screen, InputProcessor {
         gameMusic.play();
     }
 
+    /**
+     * switchCameraSize
+     */
     public void switchCameraSize() {
         if (levelNumber == 1) {
             WorldRenderer.setCameraHeight(18f);
@@ -111,11 +131,17 @@ public class GameScreen implements Screen, InputProcessor {
         checkNextLevel();
     }
 
+    /**
+     * clearScreen
+     */
     public void clearScreen() {
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
+    /**
+     * checkNextLevel
+     */
     public void checkNextLevel() {
         if (isNextLevel) {
             stopMusic();
@@ -129,11 +155,17 @@ public class GameScreen implements Screen, InputProcessor {
         }
     }
 
+    /**
+     * stopMusic
+     */
     private void stopMusic() {
         gameMusic.setLooping(false);
         gameMusic.stop();
     }
 
+    /**
+     * stopButtons
+     */
     private void stopButtons() {
         controller.leftReleased();
         controller.rightReleased();
@@ -141,6 +173,9 @@ public class GameScreen implements Screen, InputProcessor {
         controller.fireReleased();
     }
 
+    /**
+     * gotoEndScreen
+     */
     private void gotoEndScreen() {
         isNextLevel = false;
         levelNumber = 1;

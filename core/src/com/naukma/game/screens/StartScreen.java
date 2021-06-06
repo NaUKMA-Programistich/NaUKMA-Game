@@ -35,7 +35,13 @@ public class StartScreen implements Screen {
      */
     Music menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/start.wav"));
 
+    /**
+     * catJam
+     */
     Animation<TextureRegion> catJam;
+    /**
+     * elapsed
+     */
     float elapsed;
 
     /**
@@ -58,17 +64,26 @@ public class StartScreen implements Screen {
         catJam = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("gifs/catJam.gif").read());
     }
 
+    /**
+     * startMenuMusic
+     */
     private void startMenuMusic() {
         menuMusic.setLooping(true);
         menuMusic.setVolume(MUSIC_VOLUME);
         menuMusic.play();
     }
 
+    /**
+     * setupDraw
+     */
     private void setupDraw() {
         batch = new SpriteBatch();
         font = new BitmapFont();
     }
 
+    /**
+     * setupStartProcessor
+     */
     private void setupStartProcessor() {
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
@@ -83,11 +98,18 @@ public class StartScreen implements Screen {
         });
     }
 
+    /**
+     * stopMusic
+     */
     private void stopMusic() {
         menuMusic.setLooping(false);
         menuMusic.stop();
     }
 
+    /**
+     * switchScreen
+     * @param keyCode int
+     */
     private void switchScreen(int keyCode) {
         switch (keyCode) {
             case Input.Keys.SPACE:
@@ -130,6 +152,9 @@ public class StartScreen implements Screen {
         basicDraw();
     }
 
+    /**
+     * clearScreen
+     */
     private void clearScreen() {
         //Gdx.gl.glClearColor(0, 0, 2f, 1);
         Color skyColor = Color.SKY;
@@ -137,6 +162,9 @@ public class StartScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
+    /**
+     * basicDraw
+     */
     private void basicDraw() {
         Texture texture = new Texture(Gdx.files.internal("fonts/test4.5.png"), true); // true enables mipmaps
         texture.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear); // linear filtering in nearest mipmap image

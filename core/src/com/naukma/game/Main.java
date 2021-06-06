@@ -14,6 +14,9 @@ public class Main extends Game {
      */
     private final Game game;
 
+    /**
+     * MUSIC_VOLUME
+     */
     public static final float MUSIC_VOLUME = 0.1f;
 
     /**

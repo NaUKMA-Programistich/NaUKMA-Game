@@ -16,5 +16,8 @@ public class Mark extends Block {
         super(position);
     }
 
+    /**
+     * SIZE
+     */
     public static float SIZE = 0.75f;
 }

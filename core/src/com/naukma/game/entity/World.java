@@ -25,6 +25,9 @@ public class World {
      */
     private Level level;
 
+    /**
+     * bonusIgnore
+     */
     private final Array<Bonus> bonusIgnore = new Array<>();
 
     public Array<Bonus> getBonusIgnore() {
@@ -33,7 +36,8 @@ public class World {
 
 
     /**
-     * Constructor World
+     * World
+     * @param levelNum levelNum
      */
     public World(int levelNum){
        createWorld(levelNum);
@@ -132,6 +136,12 @@ public class World {
         return bonuses;
     }
 
+    /**
+     * getXY
+     * @param width  width
+     * @param height height
+     * @return getXY
+     */
     public int[] getXY(int width, int height){
         int x = (int) student.getPosition().x - width;
         int y = (int) student.getPosition().y - height;

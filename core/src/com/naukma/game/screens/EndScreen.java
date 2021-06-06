@@ -35,6 +35,9 @@ public class EndScreen implements Screen {
      */
     private BitmapFont font;
 
+    /**
+     * endMusic
+     */
     Music endMusic = Gdx.audio.newMusic(Gdx.files.internal("music/end.wav"));
 
 
@@ -50,6 +53,10 @@ public class EndScreen implements Screen {
         createResults(points);
     }
 
+    /**
+     * createPointsList
+     * @return Integer
+     */
     private ArrayList<Integer> createPointsList(){
         ArrayList<Integer> points = new ArrayList<>();
         points.add(GameScreen.firstPoints);
@@ -63,6 +70,10 @@ public class EndScreen implements Screen {
         return points;
     }
 
+    /**
+     * createResults
+     * @param points points
+     */
     private void createResults(ArrayList<Integer> points){
 
         for (int i = 0; i < 5; i++) {
@@ -96,17 +107,26 @@ public class EndScreen implements Screen {
         setupInput();
     }
 
+    /**
+     * setupMusic
+     */
     private void setupMusic(){
         endMusic.setLooping(true);
         endMusic.setVolume(MUSIC_VOLUME);
         endMusic.play();
     }
 
+    /**
+     * setupDraw
+     */
     private void setupDraw(){
         batch = new SpriteBatch();
         font = new BitmapFont();
     }
 
+    /**
+     * setupInput
+     */
     private void setupInput(){
         Gdx.input.setInputProcessor(new InputAdapter() {
 
@@ -141,12 +161,18 @@ public class EndScreen implements Screen {
         drawResults();
     }
 
+    /**
+     * clearScreen
+     */
     private void clearScreen(){
         Color skyColor = Color.SKY;
         Gdx.gl.glClearColor(skyColor.r, skyColor.g, skyColor.b, skyColor.a);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
+    /**
+     * drawResults
+     */
     private void drawResults(){
         Texture texture = new Texture(Gdx.files.internal("fonts/test8.png"), true); // true enables mipmaps
         texture.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear); // linear filtering in nearest mipmap image

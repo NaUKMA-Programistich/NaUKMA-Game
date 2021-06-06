@@ -124,6 +124,10 @@ public class WorldRenderer {
         this.debug = debug;
     }
 
+    /**
+     * setCameraHeight
+     * @param cameraHeight cameraHeight
+     */
     public static void setCameraHeight(float cameraHeight) {
         CAMERA_HEIGHT = cameraHeight;
     }

@@ -33,6 +33,9 @@ public class MainScreen implements Screen {
         setMainInputProcessor();
     }
 
+    /**
+     * setMainInputProcessor
+     */
     private void setMainInputProcessor(){
         Gdx.input.setInputProcessor(new InputAdapter() {
 
