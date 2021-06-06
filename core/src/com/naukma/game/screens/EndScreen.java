@@ -145,10 +145,10 @@ public class EndScreen implements Screen {
     }
 
     private void drawResults(){
-        Texture texture = new Texture(Gdx.files.internal("fonts/test6.png"), true); // true enables mipmaps
+        Texture texture = new Texture(Gdx.files.internal("fonts/test8.png"), true); // true enables mipmaps
         texture.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear); // linear filtering in nearest mipmap image
 
-        font = new BitmapFont(Gdx.files.internal("fonts/test6.fnt"), new TextureRegion(texture), false);
+        font = new BitmapFont(Gdx.files.internal("fonts/test8.fnt"), new TextureRegion(texture), false);
         font.getData().setScale(0.7f, 0.7f);
 
         Texture glyba01 = new Texture(Gdx.files.internal("images/glyba01.jpg"));

@@ -16,9 +16,9 @@ public class GameScreen implements Screen, InputProcessor {
 
     public static int firstPoints = 0;
     public static int secondPoints = 0;
-    public static int thirdPoints = 0;
+    public static int thirdPoints = 6;
     public static int fourthPoints = 0;
-    public static int fifthPoints = 0;
+    public static int fifthPoints = 100;
     public static int levelNumber = 1;
     public static boolean isNextLevel = false;
     /**
@@ -57,7 +57,7 @@ public class GameScreen implements Screen, InputProcessor {
     public static void resetPoints() {
         firstPoints = 0;
         secondPoints = 0;
-        thirdPoints = 0;
+        thirdPoints = 6;
         fourthPoints = 0;
         fifthPoints = 0;
     }
