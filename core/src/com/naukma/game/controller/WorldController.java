@@ -215,9 +215,9 @@ public class WorldController {
         Rectangle studentRect = rectPool.obtain();
         studentRect.set(student.getBounds().x, student.getBounds().y, student.getBounds().width, student.getBounds().height);
 
-        int startX, endX;
-        int startY = (int) student.getBounds().y;
-        int endY = (int) (student.getBounds().y + student.getBounds().height);
+        float startX, endX;
+        float startY = student.getBounds().y;
+        float endY = (student.getBounds().y + student.getBounds().height);
         if (student.getVelocity().x < 0) {
             startX = endX = (int) Math.floor(student.getBounds().x + student.getVelocity().x);
         } else {
@@ -354,16 +354,16 @@ public class WorldController {
      * @param endX   endX
      * @param endY   endY
      */
-    private void populateCollectableBlocks(int startX, int startY, int endX, int endY) {
+    private void populateCollectableBlocks(float startX, float startY, float endX, float endY) {
         collectableBlock.clear();
         collectableMark.clear();
         collectableBonus.clear();
-        for (int x = startX; x <= endX; x++) {
-            for (int y = startY; y <= endY; y++) {
+        for (float x = startX; x <= endX; x++) {
+            for (float y = startY; y <= endY; y++) {
                 if (x >= 0 && x < world.getLevel().getWidth() && y >= 0 && y < world.getLevel().getHeight()) {
-                    collectableBlock.add(world.getLevel().getBlock(x, y));
-                    collectableMark.add(world.getLevel().getMark(x, y));
-                    collectableBonus.add(world.getLevel().getBonus(x, y));
+                    collectableBlock.add(world.getLevel().getBlock((int)x, (int)y));
+                    collectableMark.add(world.getLevel().getMark((int)x, (int)y));
+                    collectableBonus.add(world.getLevel().getBonus((int)x, (int)y));
                 }
             }
         }
