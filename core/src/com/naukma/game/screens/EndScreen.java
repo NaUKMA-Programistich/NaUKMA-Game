@@ -42,14 +42,22 @@ public class EndScreen implements Screen {
      */
     public EndScreen(Game game) {
         this.game = game;
+        ArrayList<Integer> points = createPointsList();
+        GameScreen.resetPoints();
+        createResults(points);
+    }
+
+    private ArrayList<Integer> createPointsList(){
         ArrayList<Integer> points = new ArrayList<>();
         points.add(GameScreen.firstPoints);
         points.add(GameScreen.secondPoints);
         points.add(GameScreen.thirdPoints);
         points.add(GameScreen.fourthPoints);
         points.add(GameScreen.fifthPoints);
+        return points;
+    }
 
-        GameScreen.resetPoints();
+    private void createResults(ArrayList<Integer> points){
 
         for (int i = 0; i < 5; i++) {
             String nextResult = "For the subject number " + (i + 1) + " you got " + points.get(i) + " points. ";
@@ -77,11 +85,23 @@ public class EndScreen implements Screen {
      */
     @Override
     public void show() {
+        setupMusic();
+        setupDraw();
+        setupInput();
+    }
+
+    private void setupMusic(){
         endMusic.setLooping(true);
         endMusic.setVolume(MUSIC_VOLUME);
         endMusic.play();
+    }
+
+    private void setupDraw(){
         batch = new SpriteBatch();
         font = new BitmapFont();
+    }
+
+    private void setupInput(){
         Gdx.input.setInputProcessor(new InputAdapter() {
 
             @Override
@@ -111,8 +131,16 @@ public class EndScreen implements Screen {
      */
     @Override
     public void render(float delta) {
+        clearScreen();
+        drawResults();
+    }
+
+    private void clearScreen(){
         Gdx.gl.glClearColor(0, .25f, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    }
+
+    private void drawResults(){
         batch.begin();
         font.draw(batch, "Win Screen", Gdx.graphics.getWidth() * .25f, Gdx.graphics.getHeight() * .9f);
         font.draw(batch, results.get(0), Gdx.graphics.getWidth() * .25f, Gdx.graphics.getHeight() * .8f);

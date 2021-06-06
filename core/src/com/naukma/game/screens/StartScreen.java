@@ -44,33 +44,65 @@ public class StartScreen implements Screen {
      */
     @Override
     public void show() {
+        startMenuMusic();
+        setupDraw();
+        setupStartProcessor();
+    }
+
+    private void startMenuMusic(){
         menuMusic.setLooping(true);
         menuMusic.setVolume(MUSIC_VOLUME);
         menuMusic.play();
+    }
+
+    private void setupDraw(){
         batch = new SpriteBatch();
         font = new BitmapFont();
+    }
+
+    private void setupStartProcessor(){
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
             public boolean keyDown(int keyCode) {
-                if (keyCode == Input.Keys.SPACE)
-                    menuMusic.setLooping(false);
-                    menuMusic.stop();
-                    game.setScreen(new GameScreen(game));
-                if (keyCode == Input.Keys.NUM_1)
-                    game.setScreen(new GameScreen(game, 1));
-                if (keyCode == Input.Keys.NUM_2)
-                    game.setScreen(new GameScreen(game, 2));
-                if (keyCode == Input.Keys.NUM_3)
-                    game.setScreen(new GameScreen(game, 3));
-                if (keyCode == Input.Keys.NUM_4)
-                    game.setScreen(new GameScreen(game, 4));
-                if (keyCode == Input.Keys.NUM_5)
-                    game.setScreen(new GameScreen(game, 5));
-                if(keyCode == Input.Keys.END)
-                    game.setScreen(new EndScreen(game));
+                if (keyCode == Input.Keys.SPACE || keyCode == Input.Keys.NUM_1 || keyCode == Input.Keys.NUM_2 || keyCode == Input.Keys.NUM_3
+                         || keyCode == Input.Keys.NUM_4 || keyCode == Input.Keys.NUM_5 || keyCode == Input.Keys.END) {
+                    stopMusic();
+                    switchScreen(keyCode);
+                }
                 return true;
             }
         });
+    }
+
+    private void stopMusic(){
+        menuMusic.setLooping(false);
+        menuMusic.stop();
+    }
+
+    private void switchScreen(int keyCode){
+        switch (keyCode){
+            case Input.Keys.SPACE:
+                game.setScreen(new GameScreen(game));
+                break;
+            case Input.Keys.NUM_1:
+                game.setScreen(new GameScreen(game, 1));
+                break;
+            case Input.Keys.NUM_2:
+                game.setScreen(new GameScreen(game, 2));
+                break;
+            case Input.Keys.NUM_3:
+                game.setScreen(new GameScreen(game, 3));
+                break;
+            case Input.Keys.NUM_4:
+                game.setScreen(new GameScreen(game, 4));
+                break;
+            case Input.Keys.NUM_5:
+                game.setScreen(new GameScreen(game, 5));
+                break;
+            case Input.Keys.END:
+                game.setScreen(new EndScreen(game));
+                break;
+        }
     }
 
     /**
@@ -80,8 +112,16 @@ public class StartScreen implements Screen {
      */
     @Override
     public void render(float delta) {
+        clearScreen();
+        basicDraw();
+    }
+
+    private void clearScreen(){
         Gdx.gl.glClearColor(0, .25f, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    }
+
+    private void basicDraw(){
         batch.begin();
         font.getData().setScale(5, 5);
         font.draw(batch, "Title Screen", Gdx.graphics.getWidth() * .25f, Gdx.graphics.getHeight() * .75f);

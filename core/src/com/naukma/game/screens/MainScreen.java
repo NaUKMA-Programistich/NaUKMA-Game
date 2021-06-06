@@ -30,6 +30,10 @@ public class MainScreen implements Screen {
      */
     @Override
     public void show() {
+        setMainInputProcessor();
+    }
+
+    private void setMainInputProcessor(){
         Gdx.input.setInputProcessor(new InputAdapter() {
 
             @Override

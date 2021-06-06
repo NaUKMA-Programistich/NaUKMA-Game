@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.naukma.game.controller.WorldController;
 import com.naukma.game.entity.World;
 import com.naukma.game.view.WorldRenderer;
+import jdk.javadoc.internal.tool.Start;
 
 import java.util.ArrayList;
 
@@ -64,25 +65,33 @@ public class GameScreen implements Screen, InputProcessor {
      */
     @Override
     public void show() {
-        gameMusic.setLooping(true);
-        gameMusic.setVolume(MUSIC_VOLUME);
-        gameMusic.play();
-        World world = new World(levelNumber);
+        startGameMusic();
         switchCameraSize();
-        renderer = new WorldRenderer(world, false);
-        controller = new WorldController(world);
+        startWorld();
         Gdx.input.setInputProcessor(this);
     }
 
-    public void switchCameraSize() {
-        switch (levelNumber) {
-            case 1:
-                WorldRenderer.setCameraHeight(18f);
-                break;
-            case 2:
-                WorldRenderer.setCameraHeight(16f);
-                break;
+    private void startWorld(){
+        World world = new World(levelNumber);
+        renderer = new WorldRenderer(world, false);
+        controller = new WorldController(world);
+    }
+
+    private void startGameMusic(){
+        if (gameMusic.isPlaying()) {
+            gameMusic.stop();
         }
+        gameMusic.setLooping(true);
+        gameMusic.setVolume(MUSIC_VOLUME);
+        gameMusic.play();
+    }
+
+    public void switchCameraSize() {
+       if(levelNumber== 1) {
+           WorldRenderer.setCameraHeight(18f);
+       } else {
+           WorldRenderer.setCameraHeight(16f);
+       }
     }
 
     /**
@@ -107,18 +116,28 @@ public class GameScreen implements Screen, InputProcessor {
 
     public void checkNextLevel() {
         if (isNextLevel) {
-            gameMusic.setLooping(false);
-            gameMusic.stop();
-            if(levelNumber == 6){
+            stopMusic();
+            if (levelNumber == 6) {
                 gotoEndScreen();
                 return;
             }
             isNextLevel = false;
+            stopButtons();
             game.setScreen(new GameScreen(game, levelNumber));
         }
     }
 
+    private void stopMusic(){
+        gameMusic.setLooping(false);
+        gameMusic.stop();
+    }
 
+    private void stopButtons() {
+        controller.leftReleased();
+        controller.rightReleased();
+        controller.jumpReleased();
+        controller.fireReleased();
+    }
 
     public static void resetPoints() {
         firstPoints = 0;
@@ -128,7 +147,7 @@ public class GameScreen implements Screen, InputProcessor {
         fifthPoints = 0;
     }
 
-    private void gotoEndScreen(){
+    private void gotoEndScreen() {
         isNextLevel = false;
         levelNumber = 1;
         game.setScreen(new EndScreen(game));
@@ -192,6 +211,14 @@ public class GameScreen implements Screen, InputProcessor {
             controller.jumpPressed();
         if (keycode == Input.Keys.X)
             controller.firePressed();
+        if (keycode == Input.Keys.ESCAPE)
+            Gdx.app.exit();
+        if (keycode == Input.Keys.ENTER) {
+            gameMusic.stop();
+            stopButtons();
+            levelNumber = 1;
+            game.setScreen(new StartScreen(game));
+        }
         return true;
     }
 
