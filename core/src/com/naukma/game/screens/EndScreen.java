@@ -2,9 +2,12 @@ package com.naukma.game.screens;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import java.util.ArrayList;
 
@@ -136,19 +139,31 @@ public class EndScreen implements Screen {
     }
 
     private void clearScreen(){
-        Gdx.gl.glClearColor(0, .25f, 0, 1);
+        Color skyColor = Color.SKY;
+        Gdx.gl.glClearColor(skyColor.r, skyColor.g, skyColor.b, skyColor.a);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
     private void drawResults(){
+        Texture texture = new Texture(Gdx.files.internal("fonts/test6.png"), true); // true enables mipmaps
+        texture.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear); // linear filtering in nearest mipmap image
+
+        font = new BitmapFont(Gdx.files.internal("fonts/test6.fnt"), new TextureRegion(texture), false);
+        font.getData().setScale(0.7f, 0.7f);
+
+        Texture glyba01 = new Texture(Gdx.files.internal("images/glyba01.jpg"));
+
         batch.begin();
-        font.draw(batch, "Win Screen", Gdx.graphics.getWidth() * .25f, Gdx.graphics.getHeight() * .9f);
-        font.draw(batch, results.get(0), Gdx.graphics.getWidth() * .25f, Gdx.graphics.getHeight() * .8f);
-        font.draw(batch, results.get(1), Gdx.graphics.getWidth() * .25f, Gdx.graphics.getHeight() * .7f);
-        font.draw(batch, results.get(2), Gdx.graphics.getWidth() * .25f, Gdx.graphics.getHeight() * .6f);
-        font.draw(batch, results.get(3), Gdx.graphics.getWidth() * .25f, Gdx.graphics.getHeight() * .5f);
-        font.draw(batch, results.get(4), Gdx.graphics.getWidth() * .25f, Gdx.graphics.getHeight() * .4f);
-        font.draw(batch, "Press Enter to restart the game, Esc to quit the game", Gdx.graphics.getWidth() * .6f, Gdx.graphics.getHeight() * .7f);
+        batch.enableBlending();
+        batch.draw(glyba01, Gdx.graphics.getWidth()* .8f,Gdx.graphics.getHeight() * .5f, 300, 300);
+        font.draw(batch, "Session ended", Gdx.graphics.getWidth() * .25f, Gdx.graphics.getHeight() * .9f);
+        font.draw(batch, results.get(0), Gdx.graphics.getWidth() * .05f, Gdx.graphics.getHeight() * .8f);
+        font.draw(batch, results.get(1), Gdx.graphics.getWidth() * .05f, Gdx.graphics.getHeight() * .7f);
+        font.draw(batch, results.get(2), Gdx.graphics.getWidth() * .05f, Gdx.graphics.getHeight() * .6f);
+        font.draw(batch, results.get(3), Gdx.graphics.getWidth() * .05f, Gdx.graphics.getHeight() * .5f);
+        font.draw(batch, results.get(4), Gdx.graphics.getWidth() * .05f, Gdx.graphics.getHeight() * .4f);
+        font.draw(batch, "Press Enter to restart the game, Esc to Quit the game", Gdx.graphics.getWidth() * .05f, Gdx.graphics.getHeight() * .1f);
+        batch.disableBlending();
         batch.end();
     }
 
