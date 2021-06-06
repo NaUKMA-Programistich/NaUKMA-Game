@@ -42,6 +42,7 @@ public class MainScreen implements Screen {
                 if (currentScreen == Screens.TITLE && keyCode == Input.Keys.SPACE) {
                     currentScreen = Screens.MAIN_GAME;
                 } else if (currentScreen == Screens.GAME_OVER && keyCode == Input.Keys.ENTER) {
+                    GameScreen.resetPoints();
                     currentScreen = Screens.TITLE;
                 }
 

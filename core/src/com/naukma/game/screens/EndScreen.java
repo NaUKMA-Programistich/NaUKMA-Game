@@ -56,6 +56,9 @@ public class EndScreen implements Screen {
         points.add(GameScreen.secondPoints);
         points.add(GameScreen.thirdPoints);
         points.add(GameScreen.fourthPoints);
+        if(GameScreen.fifthPoints > 100){
+            GameScreen.fifthPoints = 100;
+        }
         points.add(GameScreen.fifthPoints);
         return points;
     }
