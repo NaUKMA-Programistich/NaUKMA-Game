@@ -160,7 +160,7 @@ public class WorldRenderer {
      */
     private void loadTextures() {
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("images/textures/textures.pack.atlas"));
-        studentIdleLeft = atlas.findRegion("bob01");
+        studentIdleLeft = atlas.findRegion("student01");
         studentIdleRight = new TextureRegion(studentIdleLeft);
         studentIdleRight.flip(true, false);
         blockTexture = atlas.findRegion("block");
@@ -169,7 +169,7 @@ public class WorldRenderer {
         TextureRegion[] walkLeftFrames = new TextureRegion[5];
 
         for (int i = 0; i < 5; i++) {
-            walkLeftFrames[i] = atlas.findRegion("bob0" + (i + 2));
+            walkLeftFrames[i] = atlas.findRegion("student0" + (i + 2));
         }
         walkLeftAnimation = new Animation<>(RUNNING_FRAME_DURATION, walkLeftFrames);
 
@@ -181,10 +181,10 @@ public class WorldRenderer {
         }
 
         walkRightAnimation = new Animation<>(RUNNING_FRAME_DURATION, walkRightFrames);
-        studentJumpLeft = atlas.findRegion("bobup");
+        studentJumpLeft = atlas.findRegion("studentup");
         studentJumpRight = new TextureRegion(studentJumpLeft);
         studentJumpRight.flip(true, false);
-        studentFallLeft = atlas.findRegion("bobdown");
+        studentFallLeft = atlas.findRegion("studentdown");
         studentFallRight = new TextureRegion(studentFallLeft);
         studentFallRight.flip(true, false);
     }
