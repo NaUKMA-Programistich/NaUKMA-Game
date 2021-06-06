@@ -4,6 +4,7 @@ import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.naukma.game.entity.*;
@@ -187,6 +188,16 @@ public class WorldController {
         checkCollisionWithBlocks(delta);
         checkForOverVelocity();
         student.update(delta);
+        checkStudentOutOfMap();
+    }
+
+    /**
+     * Checks if student is out of map
+     */
+    private void checkStudentOutOfMap(){
+        if(student.getPosition().y <0){
+            student.setPosition(new Vector2(student.getPosition().x, 2f));
+        }
     }
 
     /**

@@ -64,6 +64,15 @@ public class Student {
     }
 
     /**
+     * setPosition
+     *
+     * @param position
+     */
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
+
+    /**
      * update
      *
      * @param delta time
