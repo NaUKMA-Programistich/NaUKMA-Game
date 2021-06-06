@@ -6,9 +6,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.naukma.game.controller.WorldController;
 import com.naukma.game.entity.World;
 import com.naukma.game.view.WorldRenderer;
-import jdk.javadoc.internal.tool.Start;
-
-import java.util.ArrayList;
 
 import static com.naukma.game.Main.MUSIC_VOLUME;
 
@@ -17,6 +14,18 @@ import static com.naukma.game.Main.MUSIC_VOLUME;
  */
 public class GameScreen implements Screen, InputProcessor {
 
+    public static int firstPoints = 0;
+    public static int secondPoints = 0;
+    public static int thirdPoints = 0;
+    public static int fourthPoints = 0;
+    public static int fifthPoints = 0;
+    public static int levelNumber = 1;
+    public static boolean isNextLevel = false;
+    /**
+     * Game
+     */
+    private final Game game;
+    Music gameMusic = Gdx.audio.newMusic(Gdx.files.internal("music/game.wav"));
     /**
      * WorldRenderer
      */
@@ -26,24 +35,9 @@ public class GameScreen implements Screen, InputProcessor {
      */
     private WorldController controller;
     /**
-     * Game
-     */
-    private final Game game;
-    /**
      * width, height
      */
     private int width, height;
-
-    public static int firstPoints = 0;
-    public static int secondPoints = 0;
-    public static int thirdPoints = 0;
-    public static int fourthPoints = 0;
-    public static int fifthPoints = 0;
-
-    public static int levelNumber = 1;
-    public static boolean isNextLevel = false;
-
-    Music gameMusic = Gdx.audio.newMusic(Gdx.files.internal("music/game.wav"));
 
 
     /**
@@ -60,6 +54,14 @@ public class GameScreen implements Screen, InputProcessor {
         GameScreen.levelNumber = levelNumber;
     }
 
+    public static void resetPoints() {
+        firstPoints = 0;
+        secondPoints = 0;
+        thirdPoints = 0;
+        fourthPoints = 0;
+        fifthPoints = 0;
+    }
+
     /**
      * Show Screen
      */
@@ -71,13 +73,13 @@ public class GameScreen implements Screen, InputProcessor {
         Gdx.input.setInputProcessor(this);
     }
 
-    private void startWorld(){
+    private void startWorld() {
         World world = new World(levelNumber);
         renderer = new WorldRenderer(world, false);
         controller = new WorldController(world);
     }
 
-    private void startGameMusic(){
+    private void startGameMusic() {
         if (gameMusic.isPlaying()) {
             gameMusic.stop();
         }
@@ -87,11 +89,11 @@ public class GameScreen implements Screen, InputProcessor {
     }
 
     public void switchCameraSize() {
-       if(levelNumber== 1) {
-           WorldRenderer.setCameraHeight(18f);
-       } else {
-           WorldRenderer.setCameraHeight(16f);
-       }
+        if (levelNumber == 1) {
+            WorldRenderer.setCameraHeight(18f);
+        } else {
+            WorldRenderer.setCameraHeight(16f);
+        }
     }
 
     /**
@@ -127,7 +129,7 @@ public class GameScreen implements Screen, InputProcessor {
         }
     }
 
-    private void stopMusic(){
+    private void stopMusic() {
         gameMusic.setLooping(false);
         gameMusic.stop();
     }
@@ -137,14 +139,6 @@ public class GameScreen implements Screen, InputProcessor {
         controller.rightReleased();
         controller.jumpReleased();
         controller.fireReleased();
-    }
-
-    public static void resetPoints() {
-        firstPoints = 0;
-        secondPoints = 0;
-        thirdPoints = 0;
-        fourthPoints = 0;
-        fifthPoints = 0;
     }
 
     private void gotoEndScreen() {
