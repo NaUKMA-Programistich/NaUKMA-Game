@@ -213,6 +213,9 @@ public class WorldController {
         student.getVelocity().add(student.getAcceleration().x, student.getAcceleration().y);
     }
 
+    /**
+     * checkForOverVelocity
+     */
     private void checkForOverVelocity() {
         student.getVelocity().x *= DAMP;
 

@@ -66,7 +66,7 @@ public class Student {
     /**
      * setPosition
      *
-     * @param position
+     * @param position Vector2
      */
     public void setPosition(Vector2 position) {
         this.position = position;

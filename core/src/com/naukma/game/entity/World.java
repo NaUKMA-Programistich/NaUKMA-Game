@@ -30,6 +30,10 @@ public class World {
      */
     private final Array<Bonus> bonusIgnore = new Array<>();
 
+    /**
+     * getBonusIgnore
+     * @return Bonus
+     */
     public Array<Bonus> getBonusIgnore() {
         return bonusIgnore;
     }
