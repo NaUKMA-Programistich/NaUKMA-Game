@@ -1,5 +1,8 @@
 package com.naukma.game.controller;
 
+import com.badlogic.gdx.Audio;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
@@ -42,6 +45,11 @@ public class WorldController {
      * keys
      */
     static Map<Keys, Boolean> keys = new HashMap<>();
+
+    public static final float SOUND_VOLUME = 0.3f;
+
+    Sound levelEnd = Gdx.audio.newSound(Gdx.files.internal("music/levelUp.mp3"));
+    Sound coinPickup = Gdx.audio.newSound(Gdx.files.internal("music/coinPickup.wav"));
 
     static {
         keys.put(Keys.LEFT, false);
@@ -250,6 +258,7 @@ public class WorldController {
                         GameScreen.fifthPoints += 40;
                         break;
                 }
+                levelEnd.play(SOUND_VOLUME);
                 GameScreen.levelNumber++;
                 GameScreen.isNextLevel = true;
                 break;
@@ -278,6 +287,7 @@ public class WorldController {
                             GameScreen.fifthPoints += 6;
                             break;
                     }
+                    coinPickup.play(SOUND_VOLUME);
                 }
                 break;
             }
